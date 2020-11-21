@@ -1,9 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Web_BTL_Backend</RootNamespace>
+    <UserSecretsId>1528fb3b-e6b6-4815-85ea-160774f39f04</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Owin.Cors" Version="4.1.1" />
+    <PackageReference Include="Microsoft.Owin.Host.SystemWeb" Version="4.1.1" />
+    <PackageReference Include="Microsoft.Owin.Security.OAuth" Version="4.1.1" />
+  </ItemGroup>
 
 
 </Project>

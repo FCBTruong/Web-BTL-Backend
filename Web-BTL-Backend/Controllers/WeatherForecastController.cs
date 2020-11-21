@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace Web_BTL_Backend.Controllers
 {
@@ -34,6 +33,22 @@ namespace Web_BTL_Backend.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [HttpGet]
+        [Route("/Message/GetDataJson")]
+        public ActionResult<IEnumerable<string>> GetMM()
+        {
+            var s = "ddddhjjjjjjjjjjjjjjjjjjjjjjjjjjjj";
+            return Ok(s);
+        }
+
+        [HttpGet]
+        [Route("/Message/GetData")]
+        public ActionResult<IEnumerable<string>> GetVVVV()
+        {
+            String str = "[ { \"name\":\"John\", \"age\":30, \"cars\": [ { \"name\":\"Ford\", \"models\":[ \"Fiesta\", \"Focus\", \"Mustang\" ] }, { \"name\":\"BMW\", \"models\":[ \"320\", \"X3\" ] } ] }, { \"name\":\"Maria\", \"age\":25, \"cars\": [ { \"name\":\"Fiat\", \"models\":[ \"500\", \"Panda\" ] } ] }, { \"name\":\"David\", \"age\":40, \"cars\": [ { \"name\":\"Ford\", \"models\":[ \"Fiesta\", \"Focus\", \"Mustang\" ] }, { \"name\":\"BMW\", \"models\":[ \"320\", \"X3\", \"X5\" ] }, { \"name\":\"Fiat\", \"models\":[ \"500\", \"Panda\" ] } ] } ]";
+            return Ok(str);
         }
     }
 }
