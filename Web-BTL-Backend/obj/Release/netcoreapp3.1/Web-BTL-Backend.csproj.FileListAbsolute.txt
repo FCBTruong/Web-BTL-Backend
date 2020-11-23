@@ -27,3 +27,10 @@ D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\obj\Release\netcoreapp3.1\staticw
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\obj\Release\netcoreapp3.1\Web-BTL-Backend.dll
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\obj\Release\netcoreapp3.1\Web-BTL-Backend.pdb
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\obj\Release\netcoreapp3.1\Web-BTL-Backend.genruntimeconfig.cache
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll

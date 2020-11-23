@@ -22,8 +22,15 @@ D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Web-BTL-B
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Web-BTL-Backend.pdb
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\System.Web.Cors.dll
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Microsoft.Owin.Cors.dll
-D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\obj\Debug\netcoreapp3.1\Web-BTL-Backend.csproj.CoreCompileInputs.cache
-D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\obj\Debug\netcoreapp3.1\Web-BTL-Backend.MvcApplicationPartsAssemblyInfo.cache
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\obj\Debug\netcoreapp3.1\Web-BTL-Backend.dll
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\obj\Debug\netcoreapp3.1\Web-BTL-Backend.pdb
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\obj\Debug\netcoreapp3.1\Web-BTL-Backend.genruntimeconfig.cache
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\obj\Debug\netcoreapp3.1\Web-BTL-Backend.csproj.CoreCompileInputs.cache
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\obj\Debug\netcoreapp3.1\Web-BTL-Backend.MvcApplicationPartsAssemblyInfo.cache
