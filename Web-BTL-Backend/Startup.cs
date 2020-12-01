@@ -1,11 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Web_BTL_Backend.Controllers;
+using Web_BTL_Backend.Models.Data;
 
 namespace Web_BTL_Backend
 {
@@ -14,6 +17,7 @@ namespace Web_BTL_Backend
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            DatabaseController.Init(Configuration["ConnectionStrings:btl_webContext"]);
         }
 
         public IConfiguration Configuration { get; }
@@ -27,9 +31,6 @@ namespace Web_BTL_Backend
                     options.AddPolicy("CorsPolicy", builder => builder.AllowAnyOrigin()
                     .AllowAnyMethod().AllowAnyHeader().AllowCredentials().Build());
                 });
-
-            //services.AddDbContext<IronManContext>(options =>
-            // options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllers();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -47,6 +48,9 @@ namespace Web_BTL_Backend
                             Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
                     };
                 });
+
+            services.AddDbContext<db_a6a86f_truongContext>(options =>
+            options.UseMySql(Configuration.GetConnectionString("btl_webContext")));
             services.AddMvc();
         }
 
