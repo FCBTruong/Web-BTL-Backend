@@ -15,22 +15,21 @@ namespace Web_BTL_Backend.Models.Data
         {
         }
 
+        public virtual DbSet<Auths> Auths { get; set; }
+        public virtual DbSet<Categories> Categories { get; set; }
         public virtual DbSet<Comments> Comments { get; set; }
+        public virtual DbSet<ConversationReply> ConversationReply { get; set; }
+        public virtual DbSet<Conversations> Conversations { get; set; }
+        public virtual DbSet<Districts> Districts { get; set; }
+        public virtual DbSet<FavoriteRoom> FavoriteRoom { get; set; }
         public virtual DbSet<Motelrooms> Motelrooms { get; set; }
         public virtual DbSet<Posts> Posts { get; set; }
+        public virtual DbSet<Reports> Reports { get; set; }
+        public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Utilities> Utilities { get; set; }
 
-        // Unable to generate entity type for table 'auths'. Please see the warning messages.
-        // Unable to generate entity type for table 'categories'. Please see the warning messages.
-        // Unable to generate entity type for table 'conversation_reply'. Please see the warning messages.
-        // Unable to generate entity type for table 'conversations'. Please see the warning messages.
-        // Unable to generate entity type for table 'districts'. Please see the warning messages.
-        // Unable to generate entity type for table 'favorite_room'. Please see the warning messages.
-        // Unable to generate entity type for table 'images'. Please see the warning messages.
-        // Unable to generate entity type for table 'reports'. Please see the warning messages.
-        // Unable to generate entity type for table 'roles'. Please see the warning messages.
-        // Unable to generate entity type for table 'user_roles'. Please see the warning messages.
-        // Unable to generate entity type for table 'utilities'. Please see the warning messages.
+        // Unable to generate entity type for table 'room_images'. Please see the warning messages.
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -43,6 +42,64 @@ namespace Web_BTL_Backend.Models.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Auths>(entity =>
+            {
+                entity.HasKey(e => e.UserName)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("auths");
+
+                entity.HasIndex(e => e.IdUser)
+                    .HasName("id_user_idx");
+
+                entity.Property(e => e.UserName)
+                    .HasColumnName("user_name")
+                    .HasColumnType("varchar(255)");
+
+                entity.Property(e => e.Email)
+                    .HasColumnName("email")
+                    .HasColumnType("varchar(255)");
+
+                entity.Property(e => e.IdUser)
+                    .HasColumnName("id_user")
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedOnAdd();
+
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasColumnName("password")
+                    .HasColumnType("varchar(255)");
+            });
+
+            modelBuilder.Entity<Categories>(entity =>
+            {
+                entity.HasKey(e => e.IdCategory)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("categories");
+
+                entity.Property(e => e.IdCategory)
+                    .HasColumnName("id_category")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.CateroryName)
+                    .IsRequired()
+                    .HasColumnName("cateroryName")
+                    .HasColumnType("varchar(255)");
+
+                entity.Property(e => e.CreatedAt)
+                    .HasColumnName("created_at")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.Slug)
+                    .HasColumnName("slug")
+                    .HasColumnType("varchar(255)");
+
+                entity.Property(e => e.UpdatedAt)
+                    .HasColumnName("updated_at")
+                    .HasColumnType("date");
+            });
+
             modelBuilder.Entity<Comments>(entity =>
             {
                 entity.HasKey(e => e.IdComment)
@@ -69,10 +126,6 @@ namespace Web_BTL_Backend.Models.Data
                     .HasColumnName("id_post")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.IdRoom)
-                    .HasColumnName("id_room")
-                    .HasColumnType("int(11)");
-
                 entity.Property(e => e.IdUser)
                     .HasColumnName("id_user")
                     .HasColumnType("int(11)");
@@ -86,6 +139,102 @@ namespace Web_BTL_Backend.Models.Data
                     .HasColumnType("date");
             });
 
+            modelBuilder.Entity<ConversationReply>(entity =>
+            {
+                entity.HasKey(e => e.IdCr)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("conversation_reply");
+
+                entity.Property(e => e.IdCr)
+                    .HasColumnName("id_cr")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdC)
+                    .HasColumnName("id_c")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdUser)
+                    .HasColumnName("id_user")
+                    .HasColumnType("varchar(255)");
+
+                entity.Property(e => e.ReplyContent)
+                    .HasColumnName("replyContent")
+                    .HasColumnType("varchar(255)");
+
+                entity.Property(e => e.Status)
+                    .HasColumnName("status")
+                    .HasColumnType("int(11)");
+            });
+
+            modelBuilder.Entity<Conversations>(entity =>
+            {
+                entity.HasKey(e => e.IdC)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("conversations");
+
+                entity.Property(e => e.IdC)
+                    .HasColumnName("id_c")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdUser1)
+                    .HasColumnName("id_user1")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdUser2)
+                    .HasColumnName("id_user2")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.Status)
+                    .HasColumnName("status")
+                    .HasColumnType("int(11)");
+            });
+
+            modelBuilder.Entity<Districts>(entity =>
+            {
+                entity.HasKey(e => e.IdDistrict)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("districts");
+
+                entity.Property(e => e.IdDistrict)
+                    .HasColumnName("id_district")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.CreatedAt)
+                    .HasColumnName("created_at")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.DistrictName)
+                    .HasColumnName("districtName")
+                    .HasColumnType("varchar(255)");
+
+                entity.Property(e => e.Slug)
+                    .HasColumnName("slug")
+                    .HasColumnType("varchar(255)");
+
+                entity.Property(e => e.UpdatedAt)
+                    .HasColumnName("updated_at")
+                    .HasColumnType("date");
+            });
+
+            modelBuilder.Entity<FavoriteRoom>(entity =>
+            {
+                entity.HasKey(e => new { e.IdUser, e.IdRoom })
+                    .HasName("PRIMARY");
+
+                entity.ToTable("favorite_room");
+
+                entity.Property(e => e.IdUser)
+                    .HasColumnName("id_user")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdRoom)
+                    .HasColumnName("id_room")
+                    .HasColumnType("int(11)");
+            });
+
             modelBuilder.Entity<Motelrooms>(entity =>
             {
                 entity.HasKey(e => e.IdRoom)
@@ -96,7 +245,12 @@ namespace Web_BTL_Backend.Models.Data
                 entity.HasIndex(e => e.IdDistrict)
                     .HasName("id_district");
 
-                entity.Property(e => e.IdRoom).HasColumnName("id_room");
+                entity.HasIndex(e => e.IdUtility)
+                    .HasName("id_utility");
+
+                entity.Property(e => e.IdRoom)
+                    .HasColumnName("id_room")
+                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.Address)
                     .IsRequired()
@@ -201,6 +355,42 @@ namespace Web_BTL_Backend.Models.Data
                     .HasDefaultValueSql("'0'");
             });
 
+            modelBuilder.Entity<Reports>(entity =>
+            {
+                entity.HasKey(e => e.IdReport)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("reports");
+
+                entity.Property(e => e.IdReport)
+                    .HasColumnName("id_report")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.Content)
+                    .HasColumnName("content")
+                    .HasColumnType("varchar(255)");
+
+                entity.Property(e => e.IdRoom)
+                    .HasColumnName("id_room")
+                    .HasColumnType("int(11)");
+            });
+
+            modelBuilder.Entity<Roles>(entity =>
+            {
+                entity.HasKey(e => e.IdRole)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("roles");
+
+                entity.Property(e => e.IdRole)
+                    .HasColumnName("id_role")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.RoleName)
+                    .HasColumnName("roleName")
+                    .HasColumnType("varchar(255)");
+            });
+
             modelBuilder.Entity<Users>(entity =>
             {
                 entity.HasKey(e => e.IdUser)
@@ -208,10 +398,17 @@ namespace Web_BTL_Backend.Models.Data
 
                 entity.ToTable("users");
 
-                entity.Property(e => e.IdUser).HasColumnName("id_user");
+                entity.HasIndex(e => e.IdRole)
+                    .HasName("id_role_idx");
+
+                entity.HasIndex(e => e.IdUser)
+                    .HasName("id_user_index");
+
+                entity.Property(e => e.IdUser)
+                    .HasColumnName("id_user")
+                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.Avatar)
-                    .IsRequired()
                     .HasColumnName("avatar")
                     .HasColumnType("varchar(255)")
                     .HasDefaultValueSql("'no-avatar.jpg'");
@@ -220,8 +417,12 @@ namespace Web_BTL_Backend.Models.Data
                     .HasColumnName("created_at")
                     .HasColumnType("timestamp");
 
+                entity.Property(e => e.IdRole)
+                    .HasColumnName("id_role")
+                    .HasColumnType("int(11)")
+                    .HasDefaultValueSql("'0'");
+
                 entity.Property(e => e.Name)
-                    .IsRequired()
                     .HasColumnName("name")
                     .HasColumnType("varchar(255)");
 
@@ -229,14 +430,56 @@ namespace Web_BTL_Backend.Models.Data
                     .HasColumnName("phone")
                     .HasColumnType("varchar(255)");
 
-                entity.Property(e => e.Status)
-                    .HasColumnName("status")
-                    .HasColumnType("int(11)")
-                    .HasDefaultValueSql("'1'");
-
                 entity.Property(e => e.UpdatedAt)
                     .HasColumnName("updated_at")
                     .HasColumnType("timestamp");
+
+                entity.HasOne(d => d.IdRoleNavigation)
+                    .WithMany(p => p.Users)
+                    .HasForeignKey(d => d.IdRole)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("id_role");
+            });
+
+            modelBuilder.Entity<Utilities>(entity =>
+            {
+                entity.HasKey(e => e.IdUtility)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("utilities");
+
+                entity.Property(e => e.IdUtility)
+                    .HasColumnName("id_utility")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.AirConditioning)
+                    .HasColumnName("airConditioning")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.Balcony)
+                    .HasColumnName(@"
+balcony")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.BathRoom)
+                    .HasColumnName("bath_room")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.ElectricityWater)
+                    .HasColumnName("electricity_water")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.Kitchen)
+                    .HasColumnName("kitchen")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.UtilityOthers)
+                    .HasColumnName("utility_others")
+                    .HasColumnType("varchar(255)");
+
+                entity.Property(e => e.Wifi)
+                    .HasColumnName("wifi")
+                    .HasColumnType("int(11)");
             });
         }
     }

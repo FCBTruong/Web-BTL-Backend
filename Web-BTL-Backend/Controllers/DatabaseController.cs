@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Web_BTL_Backend.Models;
 using Web_BTL_Backend.Models.Data;
 
 namespace Web_BTL_Backend.Controllers
@@ -11,7 +13,7 @@ namespace Web_BTL_Backend.Controllers
     public class DatabaseController : ControllerBase
     {
         // public static MySql.Data.MySqlClient.MySqlConnection conn;
-        public static db_a6a86f_truongContext _context;
+        public db_a6a86f_truongContext _context;
         public DatabaseController(db_a6a86f_truongContext dbContext)
         {
             _context = dbContext;
@@ -58,8 +60,26 @@ namespace Web_BTL_Backend.Controllers
         [Route("/GetMotelRooms")]
         public ActionResult<IEnumerable<string>> GetModelRooms(int number)
         {
+            if (number == 0) return BadRequest();
             var listMotelRooms = _context.Motelrooms.Take(number).ToList();
             return Ok(listMotelRooms);
+        }
+
+        [HttpGet]
+        [Route("/Test")]
+        public IActionResult TestImage([FromForm(Name = "files")] List<IFormFile> files)
+        {
+            try
+            {
+                var _f = new FileServices();
+                _f.SaveFile(files, "aa");
+                return Ok();
+                //  return Ok(files);
+            }
+            catch (Exception exception)
+            {
+                return BadRequest($"Error: {exception.Message}");
+            }
         }
     }
 }

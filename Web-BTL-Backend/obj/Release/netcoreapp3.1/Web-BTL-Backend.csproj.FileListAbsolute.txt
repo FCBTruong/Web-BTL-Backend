@@ -47,3 +47,4 @@ D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\System.
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\System.Interactive.Async.dll
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\MimeTypes.dll

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using Web_BTL_Backend.Models;
+using Web_BTL_Backend.Models.Data;
 
 namespace Web_BTL_Backend.Controllers
 {
@@ -17,18 +18,21 @@ namespace Web_BTL_Backend.Controllers
     public class LoginController : ControllerBase
     {
         private IConfiguration _config;
+        public db_a6a86f_truongContext _context;
 
-        public LoginController(IConfiguration config)
+        public LoginController(IConfiguration config, db_a6a86f_truongContext dbContext)
         {
             this._config = config;
+            this._context = dbContext;
         }
 
         [HttpGet]
-        public IActionResult Login(string username, string pass)
+        public IActionResult Login(string username, string password)
         {
+            if (username == null || password == null) return BadRequest("Not null");
             UserModel login = new UserModel();
             login.UserName = username;
-            login.Password = pass;
+            login.Password = password;
             IActionResult response = Unauthorized();
 
             var user = AuthenticateUser(login);
@@ -44,15 +48,19 @@ namespace Web_BTL_Backend.Controllers
         private UserModel AuthenticateUser(UserModel login)
         {
             UserModel user = null;
-            if (login.UserName == "ashproghelp" && login.Password == "123")
+
+            var accs = _context.Auths.Where(user => user.UserName == login.UserName).ToList();
+            if (accs == null || accs.Count == 0) return user;
+            Auths acc = accs[0];
+            if (login.Password != acc.Password) return user;
+
+            user = new UserModel
             {
-                user = new UserModel
-                {
-                    UserName = "AshProgHelp",
-                    EmailAddress = "ddhhs@mm",
-                    Password = "123",
-                };
-            }
+                IdUser = acc.IdUser,
+                UserName = acc.UserName,
+                EmailAddress = acc.Email,
+                Password = acc.Password,
+            };
 
             return user;
         }
@@ -65,6 +73,7 @@ namespace Web_BTL_Backend.Controllers
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, userinfo.UserName),
+                new Claim(JwtRegisteredClaimNames.NameId, userinfo.IdUser.ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, userinfo.EmailAddress),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             };
@@ -81,7 +90,8 @@ namespace Web_BTL_Backend.Controllers
         }
 
         [Authorize]
-        [HttpPost("Post")]
+        [HttpPost]
+        [Route("Post")]
         public string Post()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;

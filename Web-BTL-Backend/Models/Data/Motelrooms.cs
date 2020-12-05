@@ -5,7 +5,7 @@ namespace Web_BTL_Backend.Models.Data
 {
     public partial class Motelrooms
     {
-        public uint IdRoom { get; set; }
+        public int IdRoom { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public int Price { get; set; }
