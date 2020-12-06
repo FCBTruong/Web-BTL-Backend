@@ -82,7 +82,7 @@ namespace Web_BTL_Backend.Controllers
                 issuer: _config["Jwt:Issuer"],
                 audience: _config["Jwt:Issuer"],
                 claims,
-                expires: DateTime.Now.AddMinutes(20),
+                expires: DateTime.Now.AddMinutes(10),
                 signingCredentials: credentials
                 );
             var encodetoken = new JwtSecurityTokenHandler().WriteToken(token);

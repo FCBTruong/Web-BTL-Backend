@@ -263,7 +263,7 @@ namespace Web_BTL_Backend.Models.Data
 
                 entity.Property(e => e.CreatedAt)
                     .HasColumnName("created_at")
-                    .HasColumnType("timestamp");
+                    .HasColumnType("date");
 
                 entity.Property(e => e.Description)
                     .IsRequired()
@@ -323,7 +323,7 @@ namespace Web_BTL_Backend.Models.Data
 
                 entity.Property(e => e.UpdatedAt)
                     .HasColumnName("updated_at")
-                    .HasColumnType("timestamp");
+                    .HasColumnType("date");
 
                 entity.Property(e => e.Views)
                     .HasColumnName("views")
@@ -341,6 +341,14 @@ namespace Web_BTL_Backend.Models.Data
                     .HasColumnName("id_post")
                     .HasColumnType("int(11)");
 
+                entity.Property(e => e.CreatedAt)
+                    .HasColumnName("created_at")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.ExpireDate)
+                    .HasColumnName("expire_date")
+                    .HasColumnType("date");
+
                 entity.Property(e => e.IdRoom)
                     .HasColumnName("id_room")
                     .HasColumnType("int(11)");
@@ -353,6 +361,10 @@ namespace Web_BTL_Backend.Models.Data
                     .HasColumnName("status")
                     .HasColumnType("int(11)")
                     .HasDefaultValueSql("'0'");
+
+                entity.Property(e => e.UpdatedAt)
+                    .HasColumnName("updated_at")
+                    .HasColumnType("date");
             });
 
             modelBuilder.Entity<Reports>(entity =>

@@ -41,10 +41,6 @@ D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Remotion.
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\System.Interactive.Async.dll
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Pomelo.EntityFrameworkCore.MySql.dll
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Pomelo.JsonObject.dll
-D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\MySql.Data.dll
-D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
-D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
-D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\MimeTypes.dll
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\obj\Debug\netcoreapp3.1\Web-BTL-Backend.csproj.CoreCompileInputs.cache
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\obj\Debug\netcoreapp3.1\Web-BTL-Backend.MvcApplicationPartsAssemblyInfo.cache

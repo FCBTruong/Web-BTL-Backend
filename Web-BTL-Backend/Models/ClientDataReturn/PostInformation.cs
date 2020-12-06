@@ -9,5 +9,7 @@ namespace Web_BTL_Backend.Models.ClientDataReturn
         public Users owner { set; get; }
         public Motelrooms motelInfor { set; get; }
         public List<PostComment> comments { set; get; }
+
+        public List<string> images { set; get; }
     }
 }

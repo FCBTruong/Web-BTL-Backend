@@ -26,6 +26,7 @@ namespace Web_BTL_Backend.Controllers
             IActionResult response = BadRequest("Same username");
             if (username == null || password == null) return response;
             if (!checkUsernameExsit(username)) return response;
+            if (!checkFormat(username, password)) return UnprocessableEntity("Not Valid Password or UserName: request 8 <= size <= 30");
             if (createAccount(username, password)) return Ok("Create account successful");
             return response;
         }
@@ -40,6 +41,12 @@ namespace Web_BTL_Backend.Controllers
             return true;
         }
 
+        private bool checkFormat(string username, string password)
+        {
+            if (username.Length < 8 || username.Length > 30) return false;
+            if (password.Length < 8 || password.Length > 30) return false;
+            return true;
+        }
         private bool createAccount(string username, string password)
         {
             UserModel user = new UserModel
@@ -63,8 +70,8 @@ namespace Web_BTL_Backend.Controllers
             Users newUser = new Users
             {
                 IdUser = newIdUser,
-                CreatedAt = DateTime.Today,
-                UpdatedAt = DateTime.Today,
+                CreatedAt = DateTime.Today.Date,
+                UpdatedAt = DateTime.Today.Date,
             };
 
             _context.Users.Add(newUser);

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace Web_BTL_Backend.Controllers
     [Route("[controller]")]
     public class DatabaseController : ControllerBase
     {
-        // public static MySql.Data.MySqlClient.MySqlConnection conn;
+        public static MySqlConnection conn;
         public db_a6a86f_truongContext _context;
         public DatabaseController(db_a6a86f_truongContext dbContext)
         {
@@ -21,16 +22,16 @@ namespace Web_BTL_Backend.Controllers
 
         public static void Init(String connectionStr)
         {
-            /*  try
-              {
-                  conn = new MySql.Data.MySqlClient.MySqlConnection();
-                  conn.ConnectionString = connectionStr;
-                  conn.Open();
-              }
-              catch (MySql.Data.MySqlClient.MySqlException ex)
-              {
+            try
+            {
+                conn = new MySql.Data.MySqlClient.MySqlConnection();
+                conn.ConnectionString = connectionStr;
+                conn.Open();
+            }
+            catch (MySql.Data.MySqlClient.MySqlException ex)
+            {
 
-              }*/
+            }
         }
 
         [HttpGet]

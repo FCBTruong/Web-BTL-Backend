@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,12 +57,26 @@ namespace Web_BTL_Backend.Controllers
                     postComments.Add(pc);
                 }
 
+                if (DatabaseController.conn.State == System.Data.ConnectionState.Closed) DatabaseController.conn.Open();
+                List<string> imagesList = new List<string>();
+                string sql = "Select image_path from room_images where id_room=" + post.IdRoom.ToString();
+                MySqlCommand cmd = new MySqlCommand(sql, DatabaseController.conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    imagesList.Add(rdr.GetString("image_path"));
+                };
+
+                rdr.Close();
+
                 postInformation = new PostInformation
                 {
                     post = post,
                     owner = owner,
                     motelInfor = motelInfor,
                     comments = postComments,
+                    images = imagesList,
                 };
 
                 return Ok(postInformation);
@@ -86,6 +101,10 @@ namespace Web_BTL_Backend.Controllers
                 for (int i = 0; i < list.Count; i++)
                 {
                     if (list[i].Status == 0) continue;
+                    if (list[i].ExpireDate < DateTime.Today.Date)
+                    {
+                        continue;
+                    }
                     postsId.Add(list[i].IdPost);
                     n++;
                     if (n > number) break;
