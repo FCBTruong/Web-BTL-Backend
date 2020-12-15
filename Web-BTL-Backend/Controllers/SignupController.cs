@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Web_BTL_Backend.Models;
+using Web_BTL_Backend.Models.ClientSendForm;
 using Web_BTL_Backend.Models.Data;
 
 namespace Web_BTL_Backend.Controllers
@@ -21,13 +23,16 @@ namespace Web_BTL_Backend.Controllers
         }
 
         [HttpPost]
-        public IActionResult Signup(string username, string password)
+        public IActionResult Signup([FromBody] SignUpForm signUpForm)
         {
+            string username = signUpForm.username;
+            string password = signUpForm.password;
+
             IActionResult response = BadRequest("Same username");
-            if (username == null || password == null) return response;
-            if (!checkUsernameExsit(username)) return response;
-            if (!checkFormat(username, password)) return UnprocessableEntity("Not Valid Password or UserName: request 8 <= size <= 30");
-            if (createAccount(username, password)) return Ok("Create account successful");
+            if (signUpForm == null) return response;
+            if (!checkUsernameExsit(signUpForm.username)) return response;
+            if (!checkFormat(signUpForm.username, signUpForm.password)) return UnprocessableEntity("Not Valid Password or UserName: request 8 <= size <= 30");
+            if (createAccount(signUpForm)) return Ok("Create account successful");
             return response;
         }
 
@@ -47,31 +52,32 @@ namespace Web_BTL_Backend.Controllers
             if (password.Length < 8 || password.Length > 30) return false;
             return true;
         }
-        private bool createAccount(string username, string password)
+        private bool createAccount(SignUpForm signUpForm)
         {
             UserModel user = new UserModel
             {
-                UserName = username,
-                Password = password,
+                UserName = signUpForm.username,
+                Password = signUpForm.password,
             };
 
             Auths newAuth = new Auths
             {
-                UserName = username,
-                Password = password,
-                Email = "user@gmail.com",
+                UserName = signUpForm.username,
+                Password = signUpForm.password,
+                Email = signUpForm.email,
             };
             _context.Auths.Add(newAuth);
             _context.SaveChanges();
 
-            var a = _context.Auths.Where(a => a.UserName == username).ToList();
+            var a = _context.Auths.Where(a => a.UserName == signUpForm.username).ToList();
             int newIdUser = a[0].IdUser;
 
             Users newUser = new Users
             {
                 IdUser = newIdUser,
-                CreatedAt = DateTime.Today.Date,
-                UpdatedAt = DateTime.Today.Date,
+                CreatedAt = DateTime.Today,
+                UpdatedAt = DateTime.Today,
+                Name = signUpForm.nameDisplay,
             };
 
             _context.Users.Add(newUser);

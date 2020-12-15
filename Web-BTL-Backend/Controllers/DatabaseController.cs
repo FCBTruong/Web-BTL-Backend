@@ -65,22 +65,5 @@ namespace Web_BTL_Backend.Controllers
             var listMotelRooms = _context.Motelrooms.Take(number).ToList();
             return Ok(listMotelRooms);
         }
-
-        [HttpGet]
-        [Route("/Test")]
-        public IActionResult TestImage([FromForm(Name = "files")] List<IFormFile> files)
-        {
-            try
-            {
-                var _f = new FileServices();
-                _f.SaveFile(files, "aa");
-                return Ok();
-                //  return Ok(files);
-            }
-            catch (Exception exception)
-            {
-                return BadRequest($"Error: {exception.Message}");
-            }
-        }
     }
 }

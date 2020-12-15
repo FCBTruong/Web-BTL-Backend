@@ -45,6 +45,7 @@ namespace Web_BTL_Backend.Controllers
 
                 var comments = _context.Comments.Where(c => c.IdPost == post.IdPost).ToList();
 
+                var category = (_context.Categories.Where(c => c.IdCategory == motelInfor.IdCategory).ToList())[0];
                 List<PostComment> postComments = new List<PostComment>();
                 for (int i = 0; i < comments.Count; i++)
                 {
@@ -77,6 +78,7 @@ namespace Web_BTL_Backend.Controllers
                     motelInfor = motelInfor,
                     comments = postComments,
                     images = imagesList,
+                    category = category,
                 };
 
                 return Ok(postInformation);
@@ -85,6 +87,15 @@ namespace Web_BTL_Backend.Controllers
             {
                 return BadRequest($"Error: {exception.Message}");
             }
+        }
+
+        [HttpGet]
+        [Route("GetPostInforBySlug")]
+        public IActionResult GetPostInforBySlug(string slug)
+        {
+            int idRoom = (_context.Motelrooms.Where(u => u.Slug == slug).ToList())[0].IdRoom;
+            var idPost = (_context.Posts.Where(u => u.IdRoom == idRoom).ToList())[0].IdPost;
+            return GetPostInfor(idPost);
         }
 
         [HttpGet]

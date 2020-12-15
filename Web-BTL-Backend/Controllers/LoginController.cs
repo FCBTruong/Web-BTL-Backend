@@ -9,6 +9,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using Web_BTL_Backend.Models;
+using Web_BTL_Backend.Models.ClientSendForm;
 using Web_BTL_Backend.Models.Data;
 
 namespace Web_BTL_Backend.Controllers
@@ -26,10 +27,12 @@ namespace Web_BTL_Backend.Controllers
             this._context = dbContext;
         }
 
-        [HttpGet]
-        public IActionResult Login(string username, string password)
+        [HttpPost]
+        public IActionResult Login([FromBody] LogInForm loginForm)
         {
-            if (username == null || password == null) return BadRequest("Not null");
+            string username = loginForm.username;
+            string password = loginForm.password;
+            if (username == null || password == null) return BadRequest(username + password);
             UserModel login = new UserModel();
             login.UserName = username;
             login.Password = password;

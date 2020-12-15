@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using MimeTypes;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using Web_BTL_Backend.Models;
 
 namespace Web_BTL_Backend.Controllers
 {
@@ -31,6 +34,22 @@ namespace Web_BTL_Backend.Controllers
                     FileName = assetImagePath + subDir,
                 };
                 return result;
+            }
+            catch (Exception exception)
+            {
+                return BadRequest($"Error: {exception.Message}");
+            }
+        }
+
+        [HttpPost]
+        [Route("PostImage")]
+        public IActionResult PostImage([FromForm(Name = "files")] List<IFormFile> files)
+        {
+            try
+            {
+                var _f = new FileServices();
+                _f.SaveFile(files, "aa");
+                return Ok();
             }
             catch (Exception exception)
             {

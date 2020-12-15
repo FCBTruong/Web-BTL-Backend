@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Ulh7nti5p+hQUWrdwGdaGsQxBk+BnUrV/MKxDOHGlZvFHh6b0+SBFXerFeyrddayUOQRoi0qhIMiMHdMhNAlGQ==",
+  "dgSpecHash": "yX9Jr/+txLSckU6gHfIsvxmls11C0ovf2sBak75QEO9bbAgNz1DTK8+2TWaca14xzclGbUYOWrxCx4gzUYvnYQ==",
   "success": true,
   "projectFilePath": "D:\\Api Dot NET\\Web-BTL-Backend\\Web-BTL-Backend\\Web-BTL-Backend.csproj",
   "expectedPackageFiles": [
@@ -44,7 +44,7 @@
     "C:\\Users\\nguye\\.nuget\\packages\\microsoft.owin.security.oauth\\4.1.1\\microsoft.owin.security.oauth.4.1.1.nupkg.sha512",
     "C:\\Users\\nguye\\.nuget\\packages\\mimetypemapofficial\\1.0.11\\mimetypemapofficial.1.0.11.nupkg.sha512",
     "C:\\Users\\nguye\\.nuget\\packages\\mysqlconnector\\0.59.2\\mysqlconnector.0.59.2.nupkg.sha512",
-    "C:\\Users\\nguye\\.nuget\\packages\\newtonsoft.json\\11.0.2\\newtonsoft.json.11.0.2.nupkg.sha512",
+    "C:\\Users\\nguye\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\nguye\\.nuget\\packages\\owin\\1.0.0\\owin.1.0.0.nupkg.sha512",
     "C:\\Users\\nguye\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\2.2.6\\pomelo.entityframeworkcore.mysql.2.2.6.nupkg.sha512",
     "C:\\Users\\nguye\\.nuget\\packages\\pomelo.jsonobject\\2.2.0\\pomelo.jsonobject.2.2.0.nupkg.sha512",

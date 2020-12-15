@@ -6,11 +6,11 @@ namespace Web_BTL_Backend.Models
 {
     public class FileServices
     {
-        public const string rootAssetsPath = "h:\\root\\home\\fcbtruong-001\\www\\btlweb\\assets\\";
+        public const string rootAssetsPath = "h:\\root\\home\\fcbtruong-001\\www\\assets\\images";
         public void SaveFile(List<IFormFile> files, string subDirectory)
         {
             subDirectory = subDirectory ?? string.Empty;
-            var target = Path.Combine("h:\\root\\home\\fcbtruong-001\\www\\btlweb\\assets\\images\\", "");
+            var target = Path.Combine(rootAssetsPath, "");
 
             Directory.CreateDirectory(target);
 
