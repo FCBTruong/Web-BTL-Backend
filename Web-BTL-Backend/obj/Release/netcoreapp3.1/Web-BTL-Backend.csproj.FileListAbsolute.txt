@@ -44,3 +44,15 @@ D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\Pomelo.
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\Remotion.Linq.dll
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\System.Interactive.Async.dll
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\MimeTypes.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\Microsoft.AspNet.Identity.Core.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\Microsoft.Extensions.Logging.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\Microsoft.Extensions.Logging.Abstractions.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\Microsoft.Extensions.Options.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\System.ComponentModel.Annotations.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll

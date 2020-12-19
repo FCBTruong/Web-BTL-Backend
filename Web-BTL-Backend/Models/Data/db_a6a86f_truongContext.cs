@@ -261,10 +261,6 @@ namespace Web_BTL_Backend.Models.Data
                     .HasColumnName("area")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.CreatedAt)
-                    .HasColumnName("created_at")
-                    .HasColumnType("date");
-
                 entity.Property(e => e.Description)
                     .IsRequired()
                     .HasColumnName("description")
@@ -320,10 +316,6 @@ namespace Web_BTL_Backend.Models.Data
                     .IsRequired()
                     .HasColumnName("title")
                     .HasColumnType("varchar(255)");
-
-                entity.Property(e => e.UpdatedAt)
-                    .HasColumnName("updated_at")
-                    .HasColumnType("date");
 
                 entity.Property(e => e.Views)
                     .HasColumnName("views")

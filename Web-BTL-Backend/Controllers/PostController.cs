@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using Web_BTL_Backend.Models.ClientDataReturn;
 using Web_BTL_Backend.Models.ClientSendForm;
 using Web_BTL_Backend.Models.Data;
@@ -14,12 +18,27 @@ namespace Web_BTL_Backend.Controllers
     [ApiController]
     public class PostController : ControllerBase
     {
+        public MySqlConnection conn;
         private IConfiguration _config;
         public db_a6a86f_truongContext _context;
+
+        public object Configuration { get; }
+
         public PostController(IConfiguration config, db_a6a86f_truongContext dbContext)
         {
             this._config = config;
             this._context = dbContext;
+
+            try
+            {
+                conn = new MySql.Data.MySqlClient.MySqlConnection();
+                conn.ConnectionString = config["ConnectionStrings:btl_webContext"];
+                conn.Open();
+            }
+            catch (MySql.Data.MySqlClient.MySqlException ex)
+            {
+
+            }
         }
 
         [HttpGet]
@@ -58,11 +77,11 @@ namespace Web_BTL_Backend.Controllers
                     };
                     postComments.Add(pc);
                 }
-
-                if (DatabaseController.conn.State == System.Data.ConnectionState.Closed) DatabaseController.conn.Open();
                 List<string> imagesList = new List<string>();
+                if (conn.State == System.Data.ConnectionState.Closed) conn.Open();
+
                 string sql = "Select image_path from room_images where id_room=" + post.IdRoom.ToString();
-                MySqlCommand cmd = new MySqlCommand(sql, DatabaseController.conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
                 MySqlDataReader rdr = cmd.ExecuteReader();
 
                 while (rdr.Read())
@@ -81,7 +100,7 @@ namespace Web_BTL_Backend.Controllers
                     images = imagesList,
                     category = category,
                 };
-
+                conn.Close();
                 return Ok(postInformation);
             }
             catch (Exception exception)
@@ -105,23 +124,80 @@ namespace Web_BTL_Backend.Controllers
             int idCategory, int minPrice, int maxPrice, int minArea,
             int maxArea)
         {
-            var p = from m in _context.Motelrooms
-                    join posts in _context.Posts on
-m.IdRoom equals posts.IdRoom
-                    where m.IdCategory == idCategory &&
-m.IdDistrict == idDistrict && m.Price >= minPrice && m.Price <= maxPrice &&
-m.Area >= minArea && m.Area <= maxArea
-                    orderby m.CreatedAt
-                    select posts.IdPost;
-            var limitPosts = p.Take(number);
-            return Ok(limitPosts);
+            if (maxArea == 0) maxArea = 1000000000;
+            if (maxPrice == 0) maxPrice = 1000000000;
+            if (number == 0) number = 100;
+
+            if (idDistrict != 0 && idCategory != 0)
+            {
+                var p = from m in _context.Motelrooms
+                        join posts in _context.Posts on
+    m.IdRoom equals posts.IdRoom
+                        where m.IdCategory == idCategory &&
+    m.IdDistrict == idDistrict && m.Price >= minPrice && m.Price <= maxPrice &&
+    m.Area >= minArea && m.Area <= maxArea && posts.ExpireDate > DateTime.Today
+                        orderby posts.CreatedAt
+                        select posts.IdPost;
+
+                var limitPosts = p.Take(number);
+                return Ok(limitPosts);
+            }
+            else if (idDistrict != 0 && idCategory == 0)
+            {
+                var p = from m in _context.Motelrooms
+                        join posts in _context.Posts on
+    m.IdRoom equals posts.IdRoom
+                        where
+    m.IdDistrict == idDistrict && m.Price >= minPrice && m.Price <= maxPrice &&
+    m.Area >= minArea && m.Area <= maxArea && posts.ExpireDate > DateTime.Today
+                        orderby posts.CreatedAt
+                        select posts.IdPost;
+
+                var limitPosts = p.Take(number);
+                return Ok(limitPosts);
+            }
+            else if (idDistrict == 0 && idCategory != 0)
+            {
+                var p = from m in _context.Motelrooms
+                        join posts in _context.Posts on
+    m.IdRoom equals posts.IdRoom
+                        where m.IdCategory == idCategory && m.Price >= minPrice && m.Price <= maxPrice &&
+    m.Area >= minArea && m.Area <= maxArea && posts.ExpireDate > DateTime.Today
+                        orderby posts.CreatedAt
+                        select posts.IdPost;
+
+                var limitPosts = p.Take(number);
+                return Ok(limitPosts);
+            }
+            else
+            {
+                var p = from m in _context.Motelrooms
+                        join posts in _context.Posts on
+    m.IdRoom equals posts.IdRoom
+                        where m.Price >= minPrice && m.Price <= maxPrice &&
+    m.Area >= minArea && m.Area <= maxArea && posts.ExpireDate > DateTime.Today
+                        orderby posts.CreatedAt
+                        select posts.IdPost;
+
+                var limitPosts = p.Take(number);
+                return Ok(limitPosts);
+            }
+            return BadRequest();
         }
 
+        [Authorize]
         [HttpPost]
         [Route("PostUp")]
-        public IActionResult SendNewPost([FromBody] PostForm post)
+        public IActionResult SendNewPost([FromForm] String postStr, [FromForm] List<IFormFile> files)
         {
-            return Ok();
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claim = identity.Claims.ToList();
+
+            PostForm post = JsonConvert.DeserializeObject<PostForm>(postStr.ToString());
+            return Ok(post);
         }
+
+        [HttpGet]
+        [Route("GetPostWithCategory")]
     }
 }

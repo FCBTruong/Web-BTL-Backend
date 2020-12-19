@@ -77,6 +77,7 @@ namespace Web_BTL_Backend.Controllers
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, userinfo.UserName),
+              //  new Claim(JwtRegisteredClaimNames.Role, userinfo.IdUser.ToString()),
                 new Claim(JwtRegisteredClaimNames.NameId, userinfo.IdUser.ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, userinfo.EmailAddress),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),

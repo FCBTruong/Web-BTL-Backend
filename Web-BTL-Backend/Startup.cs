@@ -60,7 +60,7 @@ namespace Web_BTL_Backend
             }
 
             app.UseCors(builder => builder
-            .WithOrigins("http://127.0.0.1:5500", "http://estate.easyaccommodation.cf")
+            .WithOrigins("http://127.0.0.1:5500") // , "http://estate.easyaccommodation.cf"
             .AllowAnyMethod()
             .AllowCredentials()
             .WithHeaders("Accept", "Content-Type", "Origin", "X-My-Header"));
