@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,12 +25,15 @@ namespace Web_BTL_Backend.Controllers
         public IActionResult Signup([FromBody] SignUpForm signUpForm)
         {
             string username = signUpForm.username;
-            string password = signUpForm.password;
 
             IActionResult response = BadRequest("Same username");
             if (signUpForm == null) return response;
-            if (!checkUsernameExsit(signUpForm.username)) return response;
             if (!checkFormat(signUpForm.username, signUpForm.password)) return UnprocessableEntity("Not Valid Password or UserName: request 8 <= size <= 30");
+
+            if (!checkUsernameExsit(signUpForm.username)) return response;
+            string passwordHash = HashPassword.getHashPassCode(signUpForm.password);
+            signUpForm.password = passwordHash;
+
             if (createAccount(signUpForm)) return Ok("Create account successful");
             return response;
         }

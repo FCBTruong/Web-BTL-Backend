@@ -38,6 +38,7 @@ namespace Web_BTL_Backend.Controllers
             login.Password = password;
             IActionResult response = Unauthorized();
 
+
             var user = AuthenticateUser(login);
 
             if (user != null)
@@ -51,11 +52,11 @@ namespace Web_BTL_Backend.Controllers
         private UserModel AuthenticateUser(UserModel login)
         {
             UserModel user = null;
-
             var accs = _context.Auths.Where(user => user.UserName == login.UserName).ToList();
             if (accs == null || accs.Count == 0) return user;
             Auths acc = accs[0];
-            if (login.Password != acc.Password) return user;
+
+            if (!HashPassword.VerifyHashedPassword(acc.Password, login.Password)) return user;
 
             user = new UserModel
             {

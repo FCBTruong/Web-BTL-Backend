@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Web_BTL_Backend.Models.ClientDataReturn;
+using Web_BTL_Backend.Models.ClientSendForm;
 using Web_BTL_Backend.Models.Data;
 
 namespace Web_BTL_Backend.Controllers
@@ -100,33 +101,27 @@ namespace Web_BTL_Backend.Controllers
 
         [HttpGet]
         [Route("GetPosts")]
-        public IActionResult GetPosts(int number)
+        public IActionResult GetNewPosts(int number, int idDistrict,
+            int idCategory, int minPrice, int maxPrice, int minArea,
+            int maxArea)
         {
-            try
-            {
-                List<int> postsId = new List<int>();
+            var p = from m in _context.Motelrooms
+                    join posts in _context.Posts on
+m.IdRoom equals posts.IdRoom
+                    where m.IdCategory == idCategory &&
+m.IdDistrict == idDistrict && m.Price >= minPrice && m.Price <= maxPrice &&
+m.Area >= minArea && m.Area <= maxArea
+                    orderby m.CreatedAt
+                    select posts.IdPost;
+            var limitPosts = p.Take(number);
+            return Ok(limitPosts);
+        }
 
-                var list = _context.Posts.ToList();
-
-                int n = 0;
-                for (int i = 0; i < list.Count; i++)
-                {
-                    if (list[i].Status == 0) continue;
-                    if (list[i].ExpireDate < DateTime.Today.Date)
-                    {
-                        continue;
-                    }
-                    postsId.Add(list[i].IdPost);
-                    n++;
-                    if (n > number) break;
-                }
-
-                return Ok(postsId);
-            }
-            catch (Exception exception)
-            {
-                return BadRequest($"Error: {exception.Message}");
-            }
+        [HttpPost]
+        [Route("PostUp")]
+        public IActionResult SendNewPost([FromBody] PostForm post)
+        {
+            return Ok();
         }
     }
 }

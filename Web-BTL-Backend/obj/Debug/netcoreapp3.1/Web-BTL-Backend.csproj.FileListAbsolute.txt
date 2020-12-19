@@ -42,5 +42,17 @@ D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\System.In
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Pomelo.EntityFrameworkCore.MySql.dll
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Pomelo.JsonObject.dll
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\MimeTypes.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Abstractions.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Options.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\System.ComponentModel.Annotations.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\obj\Debug\netcoreapp3.1\Web-BTL-Backend.csproj.CoreCompileInputs.cache
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\obj\Debug\netcoreapp3.1\Web-BTL-Backend.MvcApplicationPartsAssemblyInfo.cache
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Microsoft.AspNet.Identity.Core.dll
