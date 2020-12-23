@@ -8,12 +8,15 @@
         public string Password { set; get; }
         public string EmailAddress { set; get; }
 
+        public string Role { set; get; }
+
         public UserModel()
         {
             EmailAddress = "";
             UserName = "";
             IdUser = 0;
             Password = "";
+            Role = "";
         }
     }
 }

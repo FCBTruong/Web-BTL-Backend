@@ -25,11 +25,13 @@ namespace Web_BTL_Backend.Controllers
         public IActionResult Signup([FromBody] SignUpForm signUpForm)
         {
             string username = signUpForm.username;
+            if (!RegexChecker.checkAuthString(username)) return BadRequest("Valid username");
+            if (!RegexChecker.checkAuthString(signUpForm.password)) return BadRequest("Valid password");
+
 
             IActionResult response = BadRequest("Same username");
             if (signUpForm == null) return response;
-            if (!checkFormat(signUpForm.username, signUpForm.password)) return UnprocessableEntity("Not Valid Password or UserName: request 8 <= size <= 30");
-
+           
             if (!checkUsernameExsit(signUpForm.username)) return response;
             string passwordHash = HashPassword.getHashPassCode(signUpForm.password);
             signUpForm.password = passwordHash;

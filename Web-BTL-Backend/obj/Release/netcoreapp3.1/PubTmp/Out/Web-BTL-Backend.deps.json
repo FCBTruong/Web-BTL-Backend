@@ -39,6 +39,7 @@
           "Newtonsoft.Json": "12.0.3",
           "Pomelo.EntityFrameworkCore.MySql": "2.2.6",
           "System.IdentityModel.Tokens.Jwt": "6.8.0",
+          "System.Text.RegularExpressions": "4.3.1",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "3.1.0.0",
@@ -282,7 +283,7 @@
           "System.Text.Encoding.Extensions": "4.1.2.0",
           "System.Text.Encodings.Web.Reference": "4.0.5.0",
           "System.Text.Json": "4.0.1.0",
-          "System.Text.RegularExpressions": "4.2.2.0",
+          "System.Text.RegularExpressions.Reference": "4.2.2.0",
           "System.Threading.Channels": "4.0.2.0",
           "System.Threading.Reference": "4.1.2.0",
           "System.Threading.Overlapped": "4.1.2.0",
@@ -663,8 +664,8 @@
           "System.Buffers": "4.5.0"
         }
       },
-      "Microsoft.NETCore.Platforms/1.0.1": {},
-      "Microsoft.NETCore.Targets/1.0.1": {},
+      "Microsoft.NETCore.Platforms/1.1.1": {},
+      "Microsoft.NETCore.Targets/1.1.3": {},
       "Microsoft.Owin/4.1.1": {
         "dependencies": {
           "Owin": "1.0.0"
@@ -827,7 +828,7 @@
           "System.ObjectModel": "4.0.12",
           "System.Reflection": "4.1.0",
           "System.Reflection.Extensions": "4.0.1",
-          "System.Runtime": "4.1.0",
+          "System.Runtime": "4.3.1",
           "System.Runtime.Extensions": "4.1.0",
           "System.Threading": "4.0.11"
         },
@@ -844,9 +845,9 @@
       "System.Buffers/4.5.0": {},
       "System.Collections/4.0.11": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.0.1",
-          "Microsoft.NETCore.Targets": "1.0.1",
-          "System.Runtime": "4.1.0"
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
+          "System.Runtime": "4.3.1"
         }
       },
       "System.Collections.Immutable/1.5.0": {},
@@ -863,9 +864,9 @@
       },
       "System.Diagnostics.Debug/4.0.11": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.0.1",
-          "Microsoft.NETCore.Targets": "1.0.1",
-          "System.Runtime": "4.1.0"
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
+          "System.Runtime": "4.3.1"
         }
       },
       "System.Diagnostics.DiagnosticSource/5.0.0": {
@@ -881,9 +882,9 @@
       },
       "System.Globalization/4.0.11": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.0.1",
-          "Microsoft.NETCore.Targets": "1.0.1",
-          "System.Runtime": "4.1.0"
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
+          "System.Runtime": "4.3.1"
         }
       },
       "System.IdentityModel.Tokens.Jwt/6.8.0": {
@@ -914,9 +915,9 @@
       },
       "System.IO/4.1.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.0.1",
-          "Microsoft.NETCore.Targets": "1.0.1",
-          "System.Runtime": "4.1.0",
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
+          "System.Runtime": "4.3.1",
           "System.Text.Encoding": "4.0.11",
           "System.Threading.Tasks": "4.0.11"
         }
@@ -926,7 +927,7 @@
           "System.Collections": "4.0.11",
           "System.Diagnostics.Debug": "4.0.11",
           "System.Resources.ResourceManager": "4.0.1",
-          "System.Runtime": "4.1.0",
+          "System.Runtime": "4.3.1",
           "System.Runtime.Extensions": "4.1.0"
         }
       },
@@ -946,7 +947,7 @@
           "System.Reflection.Primitives": "4.0.1",
           "System.Reflection.TypeExtensions": "4.1.0",
           "System.Resources.ResourceManager": "4.0.1",
-          "System.Runtime": "4.1.0",
+          "System.Runtime": "4.3.1",
           "System.Runtime.Extensions": "4.1.0",
           "System.Threading": "4.0.11"
         }
@@ -960,7 +961,7 @@
           "System.Reflection": "4.1.0",
           "System.Reflection.Extensions": "4.0.1",
           "System.Resources.ResourceManager": "4.0.1",
-          "System.Runtime": "4.1.0"
+          "System.Runtime": "4.3.1"
         }
       },
       "System.ObjectModel/4.0.12": {
@@ -968,17 +969,17 @@
           "System.Collections": "4.0.11",
           "System.Diagnostics.Debug": "4.0.11",
           "System.Resources.ResourceManager": "4.0.1",
-          "System.Runtime": "4.1.0",
+          "System.Runtime": "4.3.1",
           "System.Threading": "4.0.11"
         }
       },
       "System.Reflection/4.1.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.0.1",
-          "Microsoft.NETCore.Targets": "1.0.1",
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
           "System.IO": "4.1.0",
           "System.Reflection.Primitives": "4.0.1",
-          "System.Runtime": "4.1.0"
+          "System.Runtime": "4.3.1"
         }
       },
       "System.Reflection.Emit/4.0.1": {
@@ -987,14 +988,14 @@
           "System.Reflection": "4.1.0",
           "System.Reflection.Emit.ILGeneration": "4.0.1",
           "System.Reflection.Primitives": "4.0.1",
-          "System.Runtime": "4.1.0"
+          "System.Runtime": "4.3.1"
         }
       },
       "System.Reflection.Emit.ILGeneration/4.0.1": {
         "dependencies": {
           "System.Reflection": "4.1.0",
           "System.Reflection.Primitives": "4.0.1",
-          "System.Runtime": "4.1.0"
+          "System.Runtime": "4.3.1"
         }
       },
       "System.Reflection.Emit.Lightweight/4.0.1": {
@@ -1002,72 +1003,77 @@
           "System.Reflection": "4.1.0",
           "System.Reflection.Emit.ILGeneration": "4.0.1",
           "System.Reflection.Primitives": "4.0.1",
-          "System.Runtime": "4.1.0"
+          "System.Runtime": "4.3.1"
         }
       },
       "System.Reflection.Extensions/4.0.1": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.0.1",
-          "Microsoft.NETCore.Targets": "1.0.1",
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
           "System.Reflection": "4.1.0",
-          "System.Runtime": "4.1.0"
+          "System.Runtime": "4.3.1"
         }
       },
       "System.Reflection.Primitives/4.0.1": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.0.1",
-          "Microsoft.NETCore.Targets": "1.0.1",
-          "System.Runtime": "4.1.0"
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
+          "System.Runtime": "4.3.1"
         }
       },
       "System.Reflection.TypeExtensions/4.1.0": {
         "dependencies": {
           "System.Reflection": "4.1.0",
-          "System.Runtime": "4.1.0"
+          "System.Runtime": "4.3.1"
         }
       },
       "System.Resources.ResourceManager/4.0.1": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.0.1",
-          "Microsoft.NETCore.Targets": "1.0.1",
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
           "System.Globalization": "4.0.11",
           "System.Reflection": "4.1.0",
-          "System.Runtime": "4.1.0"
+          "System.Runtime": "4.3.1"
         }
       },
-      "System.Runtime/4.1.0": {
+      "System.Runtime/4.3.1": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.0.1",
-          "Microsoft.NETCore.Targets": "1.0.1"
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3"
         }
       },
       "System.Runtime.Extensions/4.1.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.0.1",
-          "Microsoft.NETCore.Targets": "1.0.1",
-          "System.Runtime": "4.1.0"
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
+          "System.Runtime": "4.3.1"
         }
       },
       "System.Security.Cryptography.Cng/4.5.0": {},
       "System.Text.Encoding/4.0.11": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.0.1",
-          "Microsoft.NETCore.Targets": "1.0.1",
-          "System.Runtime": "4.1.0"
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
+          "System.Runtime": "4.3.1"
         }
       },
       "System.Text.Encodings.Web/4.5.0": {},
+      "System.Text.RegularExpressions/4.3.1": {
+        "dependencies": {
+          "System.Runtime": "4.3.1"
+        }
+      },
       "System.Threading/4.0.11": {
         "dependencies": {
-          "System.Runtime": "4.1.0",
+          "System.Runtime": "4.3.1",
           "System.Threading.Tasks": "4.0.11"
         }
       },
       "System.Threading.Tasks/4.0.11": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.0.1",
-          "Microsoft.NETCore.Targets": "1.0.1",
-          "System.Runtime": "4.1.0"
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
+          "System.Runtime": "4.3.1"
         }
       },
       "Microsoft.AspNetCore.Antiforgery/3.1.0.0": {
@@ -2528,7 +2534,7 @@
         },
         "compileOnly": true
       },
-      "System.Text.RegularExpressions/4.2.2.0": {
+      "System.Text.RegularExpressions.Reference/4.2.2.0": {
         "compile": {
           "System.Text.RegularExpressions.dll": {}
         },
@@ -2928,19 +2934,19 @@
       "path": "microsoft.net.http.headers/2.2.0",
       "hashPath": "microsoft.net.http.headers.2.2.0.nupkg.sha512"
     },
-    "Microsoft.NETCore.Platforms/1.0.1": {
+    "Microsoft.NETCore.Platforms/1.1.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-2G6OjjJzwBfNOO8myRV/nFrbTw5iA+DEm0N+qUqhrOmaVtn4pC77h38I1jsXGw5VH55+dPfQsqHD0We9sCl9FQ==",
-      "path": "microsoft.netcore.platforms/1.0.1",
-      "hashPath": "microsoft.netcore.platforms.1.0.1.nupkg.sha512"
+      "sha512": "sha512-TMBuzAHpTenGbGgk0SMTwyEkyijY/Eae4ZGsFNYJvAr/LDn1ku3Etp3FPxChmDp5HHF3kzJuoaa08N0xjqAJfQ==",
+      "path": "microsoft.netcore.platforms/1.1.1",
+      "hashPath": "microsoft.netcore.platforms.1.1.1.nupkg.sha512"
     },
-    "Microsoft.NETCore.Targets/1.0.1": {
+    "Microsoft.NETCore.Targets/1.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-rkn+fKobF/cbWfnnfBOQHKVKIOpxMZBvlSHkqDWgBpwGDcLRduvs3D9OLGeV6GWGvVwNlVi2CBbTjuPmtHvyNw==",
-      "path": "microsoft.netcore.targets/1.0.1",
-      "hashPath": "microsoft.netcore.targets.1.0.1.nupkg.sha512"
+      "sha512": "sha512-3Wrmi0kJDzClwAC+iBdUBpEKmEle8FQNsCs77fkiOIw/9oYA07bL1EZNX0kQ2OMN3xpwvl0vAtOCYY3ndDNlhQ==",
+      "path": "microsoft.netcore.targets/1.1.3",
+      "hashPath": "microsoft.netcore.targets.1.1.3.nupkg.sha512"
     },
     "Microsoft.Owin/4.1.1": {
       "type": "package",
@@ -3180,12 +3186,12 @@
       "path": "system.resources.resourcemanager/4.0.1",
       "hashPath": "system.resources.resourcemanager.4.0.1.nupkg.sha512"
     },
-    "System.Runtime/4.1.0": {
+    "System.Runtime/4.3.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-v6c/4Yaa9uWsq+JMhnOFewrYkgdNHNG2eMKuNqRn8P733rNXeRCGvV5FkkjBXn2dbVkPXOsO0xjsEeM1q2zC0g==",
-      "path": "system.runtime/4.1.0",
-      "hashPath": "system.runtime.4.1.0.nupkg.sha512"
+      "sha512": "sha512-abhfv1dTK6NXOmu4bgHIONxHyEqFjW8HwXPmpY9gmll+ix9UNo4XDcmzJn6oLooftxNssVHdJC1pGT9jkSynQg==",
+      "path": "system.runtime/4.3.1",
+      "hashPath": "system.runtime.4.3.1.nupkg.sha512"
     },
     "System.Runtime.Extensions/4.1.0": {
       "type": "package",
@@ -3214,6 +3220,13 @@
       "sha512": "sha512-Xg4G4Indi4dqP1iuAiMSwpiWS54ZghzR644OtsRCm/m/lBMG8dUBhLVN7hLm8NNrNTR+iGbshCPTwrvxZPlm4g==",
       "path": "system.text.encodings.web/4.5.0",
       "hashPath": "system.text.encodings.web.4.5.0.nupkg.sha512"
+    },
+    "System.Text.RegularExpressions/4.3.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-N0kNRrWe4+nXOWlpLT4LAY5brb8caNFlUuIRpraCVMDLYutKkol1aV079rQjLuSxKMJT2SpBQsYX9xbcTMmzwg==",
+      "path": "system.text.regularexpressions/4.3.1",
+      "hashPath": "system.text.regularexpressions.4.3.1.nupkg.sha512"
     },
     "System.Threading/4.0.11": {
       "type": "package",
@@ -4444,7 +4457,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "System.Text.RegularExpressions/4.2.2.0": {
+    "System.Text.RegularExpressions.Reference/4.2.2.0": {
       "type": "referenceassembly",
       "serviceable": false,
       "sha512": ""

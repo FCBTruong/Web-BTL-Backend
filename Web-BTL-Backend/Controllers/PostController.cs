@@ -2,12 +2,12 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using Web_BTL_Backend.Models;
 using Web_BTL_Backend.Models.ClientDataReturn;
 using Web_BTL_Backend.Models.ClientSendForm;
 using Web_BTL_Backend.Models.Data;
@@ -18,7 +18,7 @@ namespace Web_BTL_Backend.Controllers
     [ApiController]
     public class PostController : ControllerBase
     {
-        public MySqlConnection conn;
+        //  public MySqlConnection conn;
         private IConfiguration _config;
         public db_a6a86f_truongContext _context;
 
@@ -31,9 +31,9 @@ namespace Web_BTL_Backend.Controllers
 
             try
             {
-                conn = new MySql.Data.MySqlClient.MySqlConnection();
-                conn.ConnectionString = config["ConnectionStrings:btl_webContext"];
-                conn.Open();
+                /* conn = new MySql.Data.MySqlClient.MySqlConnection();
+                 conn.ConnectionString = config["ConnectionStrings:btl_webContext"];
+                 conn.Open();*/
             }
             catch (MySql.Data.MySqlClient.MySqlException ex)
             {
@@ -78,18 +78,18 @@ namespace Web_BTL_Backend.Controllers
                     postComments.Add(pc);
                 }
                 List<string> imagesList = new List<string>();
-                if (conn.State == System.Data.ConnectionState.Closed) conn.Open();
+                //  if (conn.State == System.Data.ConnectionState.Closed) conn.Open();
+                /*
+                                string sql = "Select image_path from room_images where id_room=" + post.IdRoom.ToString();
+                                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                                MySqlDataReader rdr = cmd.ExecuteReader();
 
-                string sql = "Select image_path from room_images where id_room=" + post.IdRoom.ToString();
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
-                MySqlDataReader rdr = cmd.ExecuteReader();
+                                while (rdr.Read())
+                                {
+                                    imagesList.Add(rdr.GetString("image_path"));
+                                };
 
-                while (rdr.Read())
-                {
-                    imagesList.Add(rdr.GetString("image_path"));
-                };
-
-                rdr.Close();
+                                rdr.Close();*/
 
                 postInformation = new PostInformation
                 {
@@ -100,7 +100,7 @@ namespace Web_BTL_Backend.Controllers
                     images = imagesList,
                     category = category,
                 };
-                conn.Close();
+                // conn.Close();
                 return Ok(postInformation);
             }
             catch (Exception exception)
@@ -190,14 +190,77 @@ namespace Web_BTL_Backend.Controllers
         [Route("PostUp")]
         public IActionResult SendNewPost([FromForm] String postStr, [FromForm] List<IFormFile> files)
         {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            IList<Claim> claim = identity.Claims.ToList();
+            // try
+            {
+                var identity = HttpContext.User.Identity as ClaimsIdentity;
+                IList<Claim> claim = identity.Claims.ToList();
 
-            PostForm post = JsonConvert.DeserializeObject<PostForm>(postStr.ToString());
-            return Ok(post);
+                if (claim[1].Value == "user") return Unauthorized();
+                if (claim[1].Value == "owner")
+                {
+                    PostForm post = JsonConvert.DeserializeObject<PostForm>(postStr.ToString());
+
+                    Motelrooms newMotelRoom = new Motelrooms
+                    {
+                        Title = post.title,
+                        Address = post.address,
+                        Position = JsonConvert.SerializeObject(new Position(post.lat, post.lng)),
+                        Price = post.price,
+                        Area = post.area,
+                        IdDistrict = post.district,
+                        IdCategory = post.category,
+                        Phone = post.phone,
+                        Description = post.description,
+                    };
+
+                    _context.Motelrooms.Add(newMotelRoom);
+                    _context.SaveChanges();
+
+                    // save to database
+                    Posts newPost = new Posts
+                    {
+                        IdPost = newMotelRoom.IdRoom,
+                        IdRoom = newMotelRoom.IdRoom,
+                        IdUser = Int32.Parse(claim[0].Value),
+                        Status = 0, // pending
+                        CreatedAt = DateTime.Today,
+                        ExpireDate = DateTime.Today.AddDays(10),
+                        // Expire in 10 days.
+                        UpdatedAt = DateTime.Today
+                    };
+                    _context.Posts.Add(newPost);
+                    _context.SaveChanges();
+
+                    // save Image
+                    var idPost = newMotelRoom.IdRoom;
+                    var _f = new FileServices();
+                    var subPath = "posts/" + idPost.ToString();
+                    _f.SaveFile(files, subPath);
+
+                    return Ok(post);
+                }
+                return Unauthorized();
+            }
+            /* catch (Exception exception)
+             {
+                 return BadRequest($"Error: {exception.Message}");
+             }*/
         }
 
         [HttpGet]
         [Route("GetPostWithCategory")]
+        public IActionResult GetPostWithCategory(int idCategory, int number)
+        {
+            if (number == 0) number = 10;
+            var p = from m in _context.Motelrooms
+                    join posts in _context.Posts
+on m.IdRoom equals posts.IdRoom
+                    where m.IdCategory == idCategory && posts.ExpireDate > DateTime.Today
+                    orderby posts.CreatedAt
+                    select posts.IdPost;
+
+            var limitPosts = p.Take(number);
+            return Ok(limitPosts);
+        }
     }
 }

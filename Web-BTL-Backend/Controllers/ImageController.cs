@@ -48,7 +48,7 @@ namespace Web_BTL_Backend.Controllers
             try
             {
                 var _f = new FileServices();
-                _f.SaveFile(files, "aa");
+                _f.SaveFile(files, "10");
                 return Ok();
             }
             catch (Exception exception)

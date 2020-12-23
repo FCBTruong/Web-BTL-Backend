@@ -26,10 +26,9 @@ namespace Web_BTL_Backend.Models.Data
         public virtual DbSet<Posts> Posts { get; set; }
         public virtual DbSet<Reports> Reports { get; set; }
         public virtual DbSet<Roles> Roles { get; set; }
+        public virtual DbSet<RoomImages> RoomImages { get; set; }
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<Utilities> Utilities { get; set; }
-
-        // Unable to generate entity type for table 'room_images'. Please see the warning messages.
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -393,6 +392,36 @@ namespace Web_BTL_Backend.Models.Data
                 entity.Property(e => e.RoleName)
                     .HasColumnName("roleName")
                     .HasColumnType("varchar(255)");
+            });
+
+            modelBuilder.Entity<RoomImages>(entity =>
+            {
+                entity.HasKey(e => e.IdImage)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("room_images");
+
+                entity.HasIndex(e => e.IdRoom)
+                    .HasName("id_room");
+
+                entity.Property(e => e.IdImage)
+                    .HasColumnName("id_image")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdRoom)
+                    .HasColumnName("id_room")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.ImagePath)
+                    .IsRequired()
+                    .HasColumnName("image_path")
+                    .HasColumnType("varchar(255)");
+
+                entity.HasOne(d => d.IdRoomNavigation)
+                    .WithMany(p => p.RoomImages)
+                    .HasForeignKey(d => d.IdRoom)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("room_images_ibfk_1");
             });
 
             modelBuilder.Entity<Users>(entity =>

@@ -24,9 +24,9 @@ namespace Web_BTL_Backend.Controllers
         {
             try
             {
-                conn = new MySql.Data.MySqlClient.MySqlConnection();
+               /* conn = new MySql.Data.MySqlClient.MySqlConnection();
                 conn.ConnectionString = connectionStr;
-                conn.Open();
+                conn.Open();*/
             }
             catch (MySql.Data.MySqlClient.MySqlException ex)
             {

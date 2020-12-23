@@ -53,6 +53,6 @@ D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Microsoft
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\System.ComponentModel.Annotations.dll
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Microsoft.AspNet.Identity.Core.dll
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\obj\Debug\netcoreapp3.1\Web-BTL-Backend.csproj.CoreCompileInputs.cache
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\obj\Debug\netcoreapp3.1\Web-BTL-Backend.MvcApplicationPartsAssemblyInfo.cache
-D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Microsoft.AspNet.Identity.Core.dll

@@ -32,7 +32,11 @@ namespace Web_BTL_Backend.Controllers
         {
             string username = loginForm.username;
             string password = loginForm.password;
-            if (username == null || password == null) return BadRequest(username + password);
+            if (username == null || password == null) return BadRequest("Not Null " + username + password);
+
+            if (!RegexChecker.checkAuthString(username)) return BadRequest("Valid username");
+            if (!RegexChecker.checkAuthString(password)) return BadRequest("Valid password");
+
             UserModel login = new UserModel();
             login.UserName = username;
             login.Password = password;
@@ -58,12 +62,16 @@ namespace Web_BTL_Backend.Controllers
 
             if (!HashPassword.VerifyHashedPassword(acc.Password, login.Password)) return user;
 
+            var role = (from u in _context.Users join r
+                        in _context.Roles on u.IdRole equals r.IdRole
+                        where u.IdUser == acc.IdUser select r.RoleName).ToList();
             user = new UserModel
             {
                 IdUser = acc.IdUser,
                 UserName = acc.UserName,
                 EmailAddress = acc.Email,
                 Password = acc.Password,
+                Role = role[0].ToString(),
             };
 
             return user;
@@ -77,7 +85,7 @@ namespace Web_BTL_Backend.Controllers
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, userinfo.UserName),
-              //  new Claim(JwtRegisteredClaimNames.Role, userinfo.IdUser.ToString()),
+                new Claim(JwtRegisteredClaimNames.Sub, userinfo.Role),
                 new Claim(JwtRegisteredClaimNames.NameId, userinfo.IdUser.ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, userinfo.EmailAddress),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
@@ -96,13 +104,14 @@ namespace Web_BTL_Backend.Controllers
 
         [Authorize]
         [HttpPost]
-        [Route("Post")]
+        [Route("TestAuth")]
         public string Post()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             IList<Claim> claim = identity.Claims.ToList();
             var userName = claim[0].Value;
-            return "Welcom to: " + userName;
+            var role = claim[1].Value;
+            return "Welcom to: " + userName + " " + role ;
         }
 
         [HttpGet("GetValue")]
