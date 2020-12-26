@@ -120,5 +120,34 @@ namespace Web_BTL_Backend.Controllers
         {
             return new string[] { "Value1", "Value2", "Value3" };
         }
+
+        [Authorize]
+        [HttpPost]
+        [Route("RefreshToken")]
+        public ActionResult<IEnumerable<string>> RefreshToken(string oldToken)
+        {
+            try
+            {
+                var identity = HttpContext.User.Identity as ClaimsIdentity;
+                IList<Claim> claim = identity.Claims.ToList();
+                var userName = claim[0].Value;
+                var role = claim[1].Value;
+                UserModel user = new UserModel
+                {
+                    IdUser = Int32.Parse(claim[2].Value),
+                    UserName = claim[0].Value,
+                    EmailAddress = claim[3].Value,
+                    Password = "",
+                    Role = claim[1].Value,
+                };
+
+                var newToken = GenerateJSONWebToken(user);
+                return Ok(new { token = newToken }); ;
+            }
+            catch(Exception e)
+            {
+                return BadRequest("Error: " + e);
+            }
+        }
     }
 }

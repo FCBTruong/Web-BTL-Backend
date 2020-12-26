@@ -1,4 +1,6 @@
-﻿namespace Web_BTL_Backend.Models.ClientSendForm
+﻿using System.Collections.Generic;
+
+namespace Web_BTL_Backend.Models.ClientSendForm
 {
     public class PostForm
     {
@@ -12,5 +14,7 @@
         public int category { set; get; }
         public string phone { set; get; }
         public string description { set; get; }
+
+        public List<int> utilities { set; get; }
     }
 }

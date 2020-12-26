@@ -334,11 +334,11 @@ namespace Web_BTL_Backend.Models.Data
 
                 entity.Property(e => e.CreatedAt)
                     .HasColumnName("created_at")
-                    .HasColumnType("date");
+                    .HasColumnType("datetime");
 
                 entity.Property(e => e.ExpireDate)
                     .HasColumnName("expire_date")
-                    .HasColumnType("date");
+                    .HasColumnType("datetime");
 
                 entity.Property(e => e.IdRoom)
                     .HasColumnName("id_room")
@@ -355,7 +355,7 @@ namespace Web_BTL_Backend.Models.Data
 
                 entity.Property(e => e.UpdatedAt)
                     .HasColumnName("updated_at")
-                    .HasColumnType("date");
+                    .HasColumnType("datetime");
             });
 
             modelBuilder.Entity<Reports>(entity =>
