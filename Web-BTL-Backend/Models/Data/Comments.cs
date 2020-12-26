@@ -12,5 +12,6 @@ namespace Web_BTL_Backend.Models.Data
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public int? Rating { get; set; }
+        public int? Status { get; set; }
     }
 }

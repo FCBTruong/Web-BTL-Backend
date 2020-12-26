@@ -21,7 +21,7 @@ namespace Web_BTL_Backend.Models.Data
         public virtual DbSet<ConversationReply> ConversationReply { get; set; }
         public virtual DbSet<Conversations> Conversations { get; set; }
         public virtual DbSet<Districts> Districts { get; set; }
-        public virtual DbSet<FavoriteRoom> FavoriteRoom { get; set; }
+        public virtual DbSet<FavoritePosts> FavoritePosts { get; set; }
         public virtual DbSet<Motelrooms> Motelrooms { get; set; }
         public virtual DbSet<Posts> Posts { get; set; }
         public virtual DbSet<Reports> Reports { get; set; }
@@ -133,6 +133,11 @@ namespace Web_BTL_Backend.Models.Data
                     .HasColumnName("rating")
                     .HasColumnType("int(11)");
 
+                entity.Property(e => e.Status)
+                    .HasColumnName("status")
+                    .HasColumnType("int(11)")
+                    .HasDefaultValueSql("'0'");
+
                 entity.Property(e => e.UpdatedAt)
                     .HasColumnName("updated_at")
                     .HasColumnType("date");
@@ -218,20 +223,29 @@ namespace Web_BTL_Backend.Models.Data
                     .HasColumnType("date");
             });
 
-            modelBuilder.Entity<FavoriteRoom>(entity =>
+            modelBuilder.Entity<FavoritePosts>(entity =>
             {
-                entity.HasKey(e => new { e.IdUser, e.IdRoom })
+                entity.HasKey(e => new { e.IdUser, e.IdPost })
                     .HasName("PRIMARY");
 
-                entity.ToTable("favorite_room");
+                entity.ToTable("favorite_posts");
+
+                entity.HasIndex(e => e.IdPost)
+                    .HasName("id_post");
 
                 entity.Property(e => e.IdUser)
                     .HasColumnName("id_user")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.IdRoom)
-                    .HasColumnName("id_room")
+                entity.Property(e => e.IdPost)
+                    .HasColumnName("id_post")
                     .HasColumnType("int(11)");
+
+                entity.HasOne(d => d.IdPostNavigation)
+                    .WithMany(p => p.FavoritePosts)
+                    .HasForeignKey(d => d.IdPost)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("favorite_posts_ibfk_1");
             });
 
             modelBuilder.Entity<Motelrooms>(entity =>

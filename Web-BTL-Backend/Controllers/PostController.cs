@@ -63,7 +63,7 @@ namespace Web_BTL_Backend.Controllers
                 Users owner = (_context.Users.Where(u => u.IdUser == post.IdUser).ToList())[0];
                 Motelrooms motelInfor = (_context.Motelrooms.Where(m => m.IdRoom == post.IdRoom).ToList())[0];
 
-                var comments = _context.Comments.Where(c => c.IdPost == post.IdPost).ToList();
+                var comments = _context.Comments.Where(c => c.IdPost == post.IdPost && c.Status != 0).ToList();
 
                 var category = (_context.Categories.Where(c => c.IdCategory == motelInfor.IdCategory).ToList())[0];
                 List<PostComment> postComments = new List<PostComment>();
@@ -240,7 +240,7 @@ namespace Web_BTL_Backend.Controllers
 
                         return Ok(listPostId);
                     }
-                    return Ok(p.Take(number).Select(ps =>  ps.IdPost));
+                    return Ok(p.Take(number).Select(ps => ps.IdPost));
                 }
             }
             catch (Exception e)
@@ -292,10 +292,10 @@ namespace Web_BTL_Backend.Controllers
                         IdRoom = newMotelRoom.IdRoom,
                         IdUser = Int32.Parse(claim[2].Value),
                         Status = 0, // pending
-                        CreatedAt = DateTime.Today,
-                        ExpireDate = DateTime.Today.AddDays(10),
+                        CreatedAt = DateTime.Now,
+                        ExpireDate = DateTime.Now.AddDays(10),
                         // Expire in 10 days.
-                        UpdatedAt = DateTime.Today
+                        UpdatedAt = DateTime.Now
                     };
                     newMotelRoom.Slug = slug + "-id=" + newMotelRoom.IdRoom;
 
@@ -497,7 +497,8 @@ on m.IdRoom equals posts.IdRoom
         [Route("GetPostsWithRange")]
         public IActionResult GetPostsWithRange(int startPoint, int number)
         {
-            try {
+            try
+            {
                 var posts = _context.Posts.Where(p => p.Status != 0).
                     OrderBy(
                     p => p.CreatedAt).Skip(startPoint).Take(number).Select(

@@ -62,9 +62,11 @@ namespace Web_BTL_Backend.Controllers
 
             if (!HashPassword.VerifyHashedPassword(acc.Password, login.Password)) return user;
 
-            var role = (from u in _context.Users join r
-                        in _context.Roles on u.IdRole equals r.IdRole
-                        where u.IdUser == acc.IdUser select r.RoleName).ToList();
+            var role = (from u in _context.Users
+                        join r
+in _context.Roles on u.IdRole equals r.IdRole
+                        where u.IdUser == acc.IdUser
+                        select r.RoleName).ToList();
             user = new UserModel
             {
                 IdUser = acc.IdUser,
@@ -95,7 +97,7 @@ namespace Web_BTL_Backend.Controllers
                 issuer: _config["Jwt:Issuer"],
                 audience: _config["Jwt:Issuer"],
                 claims,
-                expires: DateTime.Now.AddMinutes(10),
+                expires: DateTime.Now.AddMinutes(20),
                 signingCredentials: credentials
                 );
             var encodetoken = new JwtSecurityTokenHandler().WriteToken(token);
@@ -111,7 +113,7 @@ namespace Web_BTL_Backend.Controllers
             IList<Claim> claim = identity.Claims.ToList();
             var userName = claim[0].Value;
             var role = claim[1].Value;
-            return "Welcom to: " + userName + " " + role ;
+            return "Welcom to: " + userName + " " + role;
         }
 
         [HttpGet("GetValue")]
@@ -144,7 +146,7 @@ namespace Web_BTL_Backend.Controllers
                 var newToken = GenerateJSONWebToken(user);
                 return Ok(new { token = newToken }); ;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return BadRequest("Error: " + e);
             }
