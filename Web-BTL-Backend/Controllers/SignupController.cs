@@ -31,12 +31,19 @@ namespace Web_BTL_Backend.Controllers
 
             IActionResult response = BadRequest("Same username");
             if (signUpForm == null) return response;
-           
+
             if (!checkUsernameExsit(signUpForm.username)) return response;
             string passwordHash = HashPassword.getHashPassCode(signUpForm.password);
+            string pass = signUpForm.password;
             signUpForm.password = passwordHash;
 
-            if (createAccount(signUpForm)) return Ok("Create account successful");
+            if (createAccount(signUpForm)) return Ok(
+                new LoginController(_config, _context).Login(new LogInForm
+                {
+                    username = signUpForm.username,
+                    password = pass,
+                })
+                );
             return response;
         }
 

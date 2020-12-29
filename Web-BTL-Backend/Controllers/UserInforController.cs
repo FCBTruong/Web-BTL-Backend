@@ -28,6 +28,7 @@ namespace Web_BTL_Backend.Controllers
         }
 
         [Authorize]
+        [HttpGet]
         [Route("GetUserInfor")]
         public IActionResult GetUserInfor()
         {
@@ -38,5 +39,30 @@ namespace Web_BTL_Backend.Controllers
             var userInfor = _context.Users.Find(Int32.Parse(userId));
             return Ok(userInfor);
         }
+
+        [Authorize]
+        [HttpGet]
+        [Route("GetListOwner")]
+        public IActionResult GetListOwner()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claim = identity.Claims.ToList();
+            var role = claim[1].Value;
+
+            if (role != "admin") return Unauthorized();
+
+            var listOwner = from u in _context.Users
+                            where u.IdRole == 1
+                            select (new
+                            {
+                                u.IdUser,
+                                u.Name,
+                                u.Phone,
+                                u.CreatedAt,
+                                postNumber = _context.Posts.Where(p => p.IdUser == u.IdUser).Count()
+                            }); 
+            return Ok(listOwner);
+        }
+
     }
 }

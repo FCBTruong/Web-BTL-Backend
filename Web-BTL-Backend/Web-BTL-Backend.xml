@@ -1,0 +1,21 @@
+﻿<?xml version="1.0"?>
+<doc>
+  <assembly>
+    <name>SignalRWebApp</name>
+  </assembly>
+  <members>
+    <member name="M:SignalRWebApp.Controllers.NotificationController.Post(System.String)">
+      <summary>
+        Send message to all
+      </summary>
+      <param name="message"></param>
+    </member>
+    <member name="M:SignalRWebApp.Controllers.NotificationController.Post(System.String,System.String)">
+      <summary>
+        Send message to specific client
+      </summary>
+      <param name="connectionId"></param>
+      <param name="message"></param>
+    </member>
+  </members>
+</doc>

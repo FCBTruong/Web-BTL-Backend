@@ -121,7 +121,19 @@ namespace Web_BTL_Backend.Controllers
                 IList<Claim> claim = identity.Claims.ToList();
                 if (claim[1].Value != "admin") return Unauthorized("Only admin can use this function!");
 
-                var reviewPendingList = _context.Comments.Where(r => r.Status == 0);
+              //  var reviewPendingList = _context.Comments.Where(r => r.Status == 0);
+                var reviewPendingList = from rv in _context.Comments join
+                                    p in _context.Posts on rv.IdPost equals
+                                    p.IdPost join mr in _context.Motelrooms
+                                    on p.IdRoom equals mr.IdRoom where
+                                    rv.Status == 0 select(
+                                        new
+                                        {
+                                            rv,
+                                            mr.Title,
+                                            mr.Slug,
+                                            mr.IdCategory
+                                        });
                 return Ok(reviewPendingList);
             }
             catch (Exception e)

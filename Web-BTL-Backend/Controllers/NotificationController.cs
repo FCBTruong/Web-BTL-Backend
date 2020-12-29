@@ -1,11 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System;
-using System.Collections.Concurrent;
-using System.IO;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Web_BTL_Backend.Models.ClientSendForm;
 
 namespace Web_BTL_Backend.Controllers
 {
@@ -13,49 +8,32 @@ namespace Web_BTL_Backend.Controllers
     [ApiController]
     public class NotificationController : ControllerBase
     {
-        private static ConcurrentBag<StreamWriter> clients;
-        static NotificationController()
+        private IHubContext<SignalHub> _hub;
+        public NotificationController(IHubContext<SignalHub> hub)
         {
-            clients = new ConcurrentBag<StreamWriter>();
+            _hub = hub;
         }
 
-        public async Task PostAsync(NotificationForm m)
+        /// <summary>
+        /// Send message to all
+        /// </summary>
+        /// <param name="message"></param>
+        [HttpPost("{message}")]
+        public void Post(string message)
         {
-            await NotificationCallbackMsg(m);
-        }
-        private async Task NotificationCallbackMsg(NotificationForm m)
-        {
-            foreach (var client in clients)
-            {
-                try
-                {
-                    var data = string.Format("data:{0}|{1}|{2}\n\n", m.idUser, m.contentNotification, m.test);
-                    await client.WriteAsync(data);
-                    await client.FlushAsync();
-                    client.Dispose();
-                }
-                catch (Exception)
-                {
-                    StreamWriter ignore;
-                    clients.TryTake(out ignore);
-                }
-            }
+            Console.WriteLine("333");
+            _hub.Clients.All.SendAsync("publicMessageMethodName", message);
         }
 
-        [HttpGet]
-        public HttpResponseMessage Subscribe(HttpRequestMessage request)
+        /// <summary>
+        /// Send message to specific client
+        /// </summary>
+        /// <param name="connectionId"></param>
+        /// <param name="message"></param>
+        [HttpPost("{connectionId}/{message}")]
+        public void Post(string connectionId, string message)
         {
-            var response = request.CreateResponse();
-            response.Content = new PushStreamContent((a, b, c) =>
-            { OnStreamAvailable(a, b, c); }, "text/event-stream");
-            return response;
-        }
-
-        private void OnStreamAvailable(Stream stream, HttpContent content,
-            TransportContext context)
-        {
-            var client = new StreamWriter(stream);
-            clients.Add(client);
+            _hub.Clients.Client(connectionId).SendAsync("privateMessageMethodName", (message));
         }
     }
 }

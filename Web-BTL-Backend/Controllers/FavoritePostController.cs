@@ -53,6 +53,7 @@ namespace Web_BTL_Backend.Controllers
                                          mr.Price,
                                          mr.IdUtility,
                                          mr.IdCategory,
+                                         mr.Slug,
                                          imagePath = mr.RoomImages.Select(p => new { imagePath = p.ImagePath }).ToList()[0]
                                      }));
 

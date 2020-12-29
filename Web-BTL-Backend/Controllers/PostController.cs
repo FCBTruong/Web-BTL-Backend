@@ -52,7 +52,7 @@ namespace Web_BTL_Backend.Controllers
                 Users owner = (_context.Users.Where(u => u.IdUser == post.IdUser).ToList())[0];
                 Motelrooms motelInfor = (_context.Motelrooms.Where(m => m.IdRoom == post.IdRoom).ToList())[0];
 
-                var comments = _context.Comments.Where(c => c.IdPost == post.IdPost && c.Status != 0).ToList();
+                var comments = _context.Comments.Where(c => c.IdPost == post.IdPost && c.Status == 1).ToList();
 
                 var category = (_context.Categories.Where(c => c.IdCategory == motelInfor.IdCategory).ToList())[0];
                 List<PostComment> postComments = new List<PostComment>();
@@ -119,7 +119,7 @@ namespace Web_BTL_Backend.Controllers
                              where m.IdCategory == idCategory &&
          m.IdDistrict == idDistrict && m.Price >= minPrice && m.Price <= maxPrice &&
          m.Area >= minArea && m.Area <= maxArea && posts.ExpireDate > DateTime.Today
-         && posts.Status != 0
+         && posts.Status == 1
                              orderby posts.CreatedAt
                              select new { posts.IdPost, m.IdUtility }).ToList();
                     if (idUtility != 0)
@@ -149,7 +149,7 @@ namespace Web_BTL_Backend.Controllers
                              where
          m.IdDistrict == idDistrict && m.Price >= minPrice && m.Price <= maxPrice &&
          m.Area >= minArea && m.Area <= maxArea && posts.ExpireDate > DateTime.Today
-          && posts.Status != 0
+          && posts.Status == 1
                              orderby posts.CreatedAt
                              select new { posts.IdPost, m.IdUtility }).ToList();
 
@@ -179,7 +179,7 @@ namespace Web_BTL_Backend.Controllers
          m.IdRoom equals posts.IdRoom
                              where m.IdCategory == idCategory && m.Price >= minPrice && m.Price <= maxPrice &&
          m.Area >= minArea && m.Area <= maxArea && posts.ExpireDate > DateTime.Today
-          && posts.Status != 0
+          && posts.Status == 1
                              orderby posts.CreatedAt
                              select new { posts.IdPost, m.IdUtility }).ToList();
 
@@ -209,7 +209,7 @@ namespace Web_BTL_Backend.Controllers
          m.IdRoom equals posts.IdRoom
                              where m.Price >= minPrice && m.Price <= maxPrice &&
          m.Area >= minArea && m.Area <= maxArea && posts.ExpireDate > DateTime.Today
-          && posts.Status != 0
+          && posts.Status == 1
                              orderby posts.CreatedAt
                              select new { posts.IdPost, m.IdUtility }).ToList();
 
@@ -240,7 +240,7 @@ namespace Web_BTL_Backend.Controllers
         }
 
         [Authorize]
-        [HttpPost]
+
         [Route("PostUp")]
         public IActionResult SendNewPost([FromForm] String postStr, [FromForm] List<IFormFile> files)
         {
@@ -328,7 +328,7 @@ namespace Web_BTL_Backend.Controllers
 on m.IdRoom equals posts.IdRoom
                     join categories in _context.Categories on
                     m.IdCategory equals categories.IdCategory
-                    where categories.Slug == slug && posts.Status != 0 && posts.ExpireDate > DateTime.Today
+                    where categories.Slug == slug && posts.Status == 1 && posts.ExpireDate > DateTime.Today
                     orderby posts.CreatedAt
                     select posts.IdPost;
 
@@ -510,15 +510,86 @@ on m.IdRoom equals posts.IdRoom
         {
             try
             {
-                var posts = _context.Posts.Where(p => p.Status != 0).
+           
+                var posts = _context.Posts.Where(p => p.Status == 1).
                     OrderBy(
-                    p => p.CreatedAt).Skip(startPoint).Take(number).Select(
-                    p => p.IdPost);
-                return Ok(posts);
+                    p => p.CreatedAt).ToList();
+                var idList = new List<int>();
+
+                if(posts.Count >= startPoint)
+                {
+                    int j = 0;
+                    for(int i = startPoint; i <= posts.Count; i++)
+                    {
+                        idList.Add(posts[i - 1].IdPost);
+                        j++;
+                        if (j > number) break;
+                    }
+                }
+                return Ok(idList);
             }
             catch (Exception e)
             {
                 return BadRequest("Error" + e);
+            }
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("AdminGetAllPosts")]
+        public IActionResult AdminGetAllPosts(int number)
+        {
+            try
+            {
+                var identity = HttpContext.User.Identity as ClaimsIdentity;
+                IList<Claim> claim = identity.Claims.ToList();
+
+                if (claim[1].Value != "admin") return Unauthorized();
+
+                if (number == 0) number = _context.Posts.ToList().Count;
+                var listPosts = (from post in _context.Posts
+                                 join room in _context.Motelrooms
+                                 on post.IdRoom equals room.IdRoom
+                                 select (new
+                                 {
+                                     post.IdPost,
+                                     post.Status,
+                                     post.CreatedAt,
+                                     post.ExpireDate,
+                                     room.Price,
+                                     room.Slug,
+                                     room.Title,
+                                     room.IdCategory,
+                                     post.IdUser
+                                 })
+                                   ).Take(number).ToList();
+
+
+                return Ok(listPosts);
+            }
+            catch (Exception e)
+            {
+                return BadRequest("Error: " + e);
+            }
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("AdminGetPostWithId")]
+        public IActionResult AmdinGetPostWithId(int idPost)
+        {
+            try
+            {
+                var identity = HttpContext.User.Identity as ClaimsIdentity;
+                IList<Claim> claim = identity.Claims.ToList();
+
+                if (claim[1].Value != "admin") return Unauthorized();
+
+                return Ok(GetPostPrivate(idPost));
+            }
+            catch (Exception e)
+            {
+                return BadRequest("Error: " + e);
             }
         }
     }
