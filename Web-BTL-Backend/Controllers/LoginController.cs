@@ -97,7 +97,7 @@ in _context.Roles on u.IdRole equals r.IdRole
                 issuer: _config["Jwt:Issuer"],
                 audience: _config["Jwt:Issuer"],
                 claims,
-                expires: DateTime.Now.AddMinutes(20),
+                expires: DateTime.Now.AddMinutes(60),
                 signingCredentials: credentials
                 );
             var encodetoken = new JwtSecurityTokenHandler().WriteToken(token);

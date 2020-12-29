@@ -28,17 +28,6 @@ namespace Web_BTL_Backend.Controllers
         {
             this._config = config;
             this._context = dbContext;
-
-            try
-            {
-                /* conn = new MySql.Data.MySqlClient.MySqlConnection();
-                 conn.ConnectionString = config["ConnectionStrings:btl_webContext"];
-                 conn.Open();*/
-            }
-            catch (MySql.Data.MySqlClient.MySqlException ex)
-            {
-
-            }
         }
 
         [HttpGet]
@@ -81,6 +70,7 @@ namespace Web_BTL_Backend.Controllers
                 imagesList = (from imageTbl in _context.RoomImages
                               where imageTbl.IdRoom == motelInfor.IdRoom
                               select imageTbl.ImagePath).ToList();
+                int likes = _context.FavoritePosts.Where(f => f.IdPost == idPost).Count();
 
                 postInformation = new PostInformation
                 {
@@ -90,8 +80,8 @@ namespace Web_BTL_Backend.Controllers
                     comments = postComments,
                     images = imagesList,
                     category = category,
+                    likes = likes,
                 };
-                // conn.Close();
                 return Ok(postInformation);
             }
             catch (Exception exception)
@@ -276,10 +266,9 @@ namespace Web_BTL_Backend.Controllers
                         IdCategory = post.category,
                         Phone = post.phone,
                         Description = post.description,
-                        IdUtility = post.utilities.ToString(),
+                        IdUtility = '[' + string.Join(",", post.utilities.ToArray()) + ']',
                         Slug = "",
                         Status = 0,
-                        Likes = 0,
                     };
 
                     _context.Motelrooms.Add(newMotelRoom);
@@ -295,9 +284,11 @@ namespace Web_BTL_Backend.Controllers
                         CreatedAt = DateTime.Now,
                         ExpireDate = DateTime.Now.AddDays(10),
                         // Expire in 10 days.
-                        UpdatedAt = DateTime.Now
+                        UpdatedAt = DateTime.Now,
+                        PacketType = post.packetType,
+                        PacketValue = post.packetValue
                     };
-                    newMotelRoom.Slug = slug + "-id=" + newMotelRoom.IdRoom;
+                    newMotelRoom.Slug = slug + "-id-" + newMotelRoom.IdRoom;
 
                     for (int i = 0; i < files.Count; i++)
                     {
@@ -383,6 +374,25 @@ on m.IdRoom equals posts.IdRoom
 
                 var post = _context.Posts.Find(idPost);
                 post.Status = 1; // accept
+
+                int expireDays = 0;
+                switch (post.PacketType)
+                {
+                    case 1:
+                        expireDays = 7 * (post.PacketValue).GetValueOrDefault();
+                        break;
+                    case 2:
+                        expireDays = 30 * (post.PacketValue).GetValueOrDefault();
+                        break;
+                    case 3:
+                        expireDays = 90 * (post.PacketValue).GetValueOrDefault();
+                        break;
+                    case 4:
+                        expireDays = 360 * (post.PacketValue).GetValueOrDefault();
+                        break;
+                }
+
+                post.ExpireDate = DateTime.Today.AddDays(expireDays);
                 _context.SaveChanges();
 
                 return Ok("Accepted this post!");
@@ -479,7 +489,7 @@ on m.IdRoom equals posts.IdRoom
             imagesList = (from imageTbl in _context.RoomImages
                           where imageTbl.IdRoom == motelInfor.IdRoom
                           select imageTbl.ImagePath).ToList();
-
+            int likes = _context.FavoritePosts.Where(f => f.IdPost == idPost).Count();
             postInformation = new PostInformation
             {
                 post = post,
@@ -488,6 +498,7 @@ on m.IdRoom equals posts.IdRoom
                 comments = postComments,
                 images = imagesList,
                 category = category,
+                likes = likes
             };
             // conn.Close();
             return postInformation;

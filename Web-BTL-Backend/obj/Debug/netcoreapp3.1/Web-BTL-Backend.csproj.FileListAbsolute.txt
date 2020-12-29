@@ -54,5 +54,12 @@ D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Microsoft
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\System.ComponentModel.Annotations.dll
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Microsoft.AspNet.Identity.Core.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\System.Net.Http.Formatting.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.WebApiCompatShim.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Microsoft.DotNet.PlatformAbstractions.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyModel.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\obj\Debug\netcoreapp3.1\Web-BTL-Backend.csproj.CoreCompileInputs.cache
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\obj\Debug\netcoreapp3.1\Web-BTL-Backend.MvcApplicationPartsAssemblyInfo.cs
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\obj\Debug\netcoreapp3.1\Web-BTL-Backend.MvcApplicationPartsAssemblyInfo.cache

@@ -16,5 +16,9 @@ namespace Web_BTL_Backend.Models.ClientSendForm
         public string description { set; get; }
 
         public List<int> utilities { set; get; }
+
+        public int packetType { set; get; }
+
+        public int packetValue { set; get; }
     }
 }

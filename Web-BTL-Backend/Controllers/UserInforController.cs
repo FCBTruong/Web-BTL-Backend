@@ -33,7 +33,7 @@ namespace Web_BTL_Backend.Controllers
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             IList<Claim> claim = identity.Claims.ToList();
-            var userId = claim[1].Value;
+            var userId = claim[2].Value;
 
             var userInfor = _context.Users.Find(Int32.Parse(userId));
             return Ok(userInfor);

@@ -12,5 +12,6 @@ namespace Web_BTL_Backend.Models.ClientDataReturn
         public Categories category { set; get; }
 
         public List<string> images { set; get; }
+        public int likes { set; get; }
     }
 }

@@ -56,3 +56,10 @@ D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\Microso
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\System.ComponentModel.Annotations.dll
 D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\System.Net.Http.Formatting.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\Microsoft.AspNetCore.Mvc.WebApiCompatShim.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\Microsoft.DotNet.PlatformAbstractions.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\Microsoft.Extensions.DependencyModel.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\bin\Release\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+D:\Api Dot NET\Web-BTL-Backend\Web-BTL-Backend\obj\Release\netcoreapp3.1\Web-BTL-Backend.MvcApplicationPartsAssemblyInfo.cs

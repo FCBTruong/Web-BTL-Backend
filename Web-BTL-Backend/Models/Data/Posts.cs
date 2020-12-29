@@ -8,6 +8,7 @@ namespace Web_BTL_Backend.Models.Data
         public Posts()
         {
             FavoritePosts = new HashSet<FavoritePosts>();
+            Reports = new HashSet<Reports>();
         }
 
         public int IdPost { get; set; }
@@ -16,8 +17,11 @@ namespace Web_BTL_Backend.Models.Data
         public int? Status { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
-        public DateTime ExpireDate { get; set; }
+        public DateTime? ExpireDate { get; set; }
+        public int? PacketType { get; set; }
+        public int? PacketValue { get; set; }
 
         public virtual ICollection<FavoritePosts> FavoritePosts { get; set; }
+        public virtual ICollection<Reports> Reports { get; set; }
     }
 }

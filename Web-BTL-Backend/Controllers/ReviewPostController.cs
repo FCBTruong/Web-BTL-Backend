@@ -41,7 +41,8 @@ namespace Web_BTL_Backend.Controllers
                 var idUser = Int32.Parse(claim[2].Value);
 
                 // check review exist:
-                bool p = _context.Comments.Any(v => v.IdUser == idUser);
+                bool p = _context.Comments.Any(v => v.IdUser == idUser
+                && v.IdPost == reviewForm.idPost);
                 if (!p)
                 {
                     _context.Comments.Add(new Comments
@@ -54,6 +55,7 @@ namespace Web_BTL_Backend.Controllers
                         Rating = reviewForm.rate
                     });
                     _context.SaveChanges();
+                    return Ok();
                 }
 
                 return BadRequest("Already exist review");

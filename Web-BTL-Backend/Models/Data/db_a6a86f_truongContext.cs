@@ -294,14 +294,6 @@ namespace Web_BTL_Backend.Models.Data
                     .HasColumnName("id_utility")
                     .HasColumnType("varchar(255)");
 
-                entity.Property(e => e.IsGeneral)
-                    .HasColumnName("isGeneral")
-                    .HasColumnType("int(11)");
-
-                entity.Property(e => e.Likes)
-                    .HasColumnName("likes")
-                    .HasColumnType("int(11)");
-
                 entity.Property(e => e.Phone)
                     .IsRequired()
                     .HasColumnName("phone")
@@ -362,6 +354,16 @@ namespace Web_BTL_Backend.Models.Data
                     .HasColumnName("id_user")
                     .HasColumnType("int(11)");
 
+                entity.Property(e => e.PacketType)
+                    .HasColumnName("packet_type")
+                    .HasColumnType("int(11)")
+                    .HasDefaultValueSql("'1'");
+
+                entity.Property(e => e.PacketValue)
+                    .HasColumnName("packet_value")
+                    .HasColumnType("int(11)")
+                    .HasDefaultValueSql("'1'");
+
                 entity.Property(e => e.Status)
                     .HasColumnName("status")
                     .HasColumnType("int(11)")
@@ -379,6 +381,12 @@ namespace Web_BTL_Backend.Models.Data
 
                 entity.ToTable("reports");
 
+                entity.HasIndex(e => e.IdPost)
+                    .HasName("id_post");
+
+                entity.HasIndex(e => e.IdUser)
+                    .HasName("id_user");
+
                 entity.Property(e => e.IdReport)
                     .HasColumnName("id_report")
                     .HasColumnType("int(11)");
@@ -387,9 +395,30 @@ namespace Web_BTL_Backend.Models.Data
                     .HasColumnName("content")
                     .HasColumnType("varchar(255)");
 
-                entity.Property(e => e.IdRoom)
-                    .HasColumnName("id_room")
+                entity.Property(e => e.CreatedAt).HasColumnName("createdAt");
+
+                entity.Property(e => e.IdPost)
+                    .HasColumnName("id_post")
                     .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdUser)
+                    .HasColumnName("id_user")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.ReportType)
+                    .HasColumnName("report_type")
+                    .HasColumnType("int(11)");
+
+                entity.HasOne(d => d.IdPostNavigation)
+                    .WithMany(p => p.Reports)
+                    .HasForeignKey(d => d.IdPost)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("reports_ibfk_1");
+
+                entity.HasOne(d => d.IdUserNavigation)
+                    .WithMany(p => p.Reports)
+                    .HasForeignKey(d => d.IdUser)
+                    .HasConstraintName("reports_ibfk_2");
             });
 
             modelBuilder.Entity<Roles>(entity =>

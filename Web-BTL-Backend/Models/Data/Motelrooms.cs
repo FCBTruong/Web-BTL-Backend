@@ -24,9 +24,7 @@ namespace Web_BTL_Backend.Models.Data
         public string IdUtility { get; set; }
         public string Phone { get; set; }
         public string Slug { get; set; }
-        public int? Likes { get; set; }
         public int? Status { get; set; }
-        public int IsGeneral { get; set; }
 
         public virtual ICollection<RoomImages> RoomImages { get; set; }
     }
