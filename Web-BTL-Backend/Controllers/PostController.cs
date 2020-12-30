@@ -120,7 +120,7 @@ namespace Web_BTL_Backend.Controllers
          m.IdDistrict == idDistrict && m.Price >= minPrice && m.Price <= maxPrice &&
          m.Area >= minArea && m.Area <= maxArea && posts.ExpireDate > DateTime.Today
          && posts.Status == 1
-                             orderby posts.CreatedAt
+                             orderby posts.CreatedAt descending
                              select new { posts.IdPost, m.IdUtility }).ToList();
                     if (idUtility != 0)
                     {
@@ -150,7 +150,7 @@ namespace Web_BTL_Backend.Controllers
          m.IdDistrict == idDistrict && m.Price >= minPrice && m.Price <= maxPrice &&
          m.Area >= minArea && m.Area <= maxArea && posts.ExpireDate > DateTime.Today
           && posts.Status == 1
-                             orderby posts.CreatedAt
+                             orderby posts.CreatedAt descending
                              select new { posts.IdPost, m.IdUtility }).ToList();
 
                     if (idUtility != 0)
@@ -180,7 +180,7 @@ namespace Web_BTL_Backend.Controllers
                              where m.IdCategory == idCategory && m.Price >= minPrice && m.Price <= maxPrice &&
          m.Area >= minArea && m.Area <= maxArea && posts.ExpireDate > DateTime.Today
           && posts.Status == 1
-                             orderby posts.CreatedAt
+                             orderby posts.CreatedAt descending
                              select new { posts.IdPost, m.IdUtility }).ToList();
 
                     if (idUtility != 0)
@@ -210,7 +210,7 @@ namespace Web_BTL_Backend.Controllers
                              where m.Price >= minPrice && m.Price <= maxPrice &&
          m.Area >= minArea && m.Area <= maxArea && posts.ExpireDate > DateTime.Today
           && posts.Status == 1
-                             orderby posts.CreatedAt
+                             orderby posts.CreatedAt descending
                              select new { posts.IdPost, m.IdUtility }).ToList();
 
                     if (idUtility != 0)
@@ -329,7 +329,7 @@ on m.IdRoom equals posts.IdRoom
                     join categories in _context.Categories on
                     m.IdCategory equals categories.IdCategory
                     where categories.Slug == slug && posts.Status == 1 && posts.ExpireDate > DateTime.Today
-                    orderby posts.CreatedAt
+                    orderby posts.CreatedAt descending
                     select posts.IdPost;
 
             var limitPosts = p.Take(number);
@@ -422,6 +422,77 @@ on m.IdRoom equals posts.IdRoom
                 _context.SaveChanges();
 
                 return Ok("Accepted this post!");
+            }
+            catch (Exception e)
+            {
+                return BadRequest("Error: " + e);
+            }
+        }
+
+
+        [Authorize]
+        [HttpPost]
+        [Route("ExtendDatePost")]
+        public IActionResult ExtendDatePost(int idPost, int packetType, int packetValue)
+        {
+            try
+            {
+                var identity = HttpContext.User.Identity as ClaimsIdentity;
+                IList<Claim> claim = identity.Claims.ToList();
+
+                if (claim[1].Value == "user") return Unauthorized("Only Onwer, Admin allow");
+
+                int addDays = 0;
+                switch (packetType)
+                {
+                    case 1:
+                        addDays = 7 * (packetValue);
+                        break;
+                    case 2:
+                        addDays = 30 * (packetValue);
+                        break;
+                    case 3:
+                        addDays = 90 * (packetValue);
+                        break;
+                    case 4:
+                        addDays = 360 * (packetValue);
+                        break;
+                }
+                var post = _context.Posts.Find(idPost);
+                if(post.Status != 1)
+                {
+                    return BadRequest("Post is pending, or not be accepted!");
+                }
+
+                post.ExpireDate = post.ExpireDate.GetValueOrDefault().AddDays(addDays);
+
+                _context.SaveChanges();
+
+                return Ok("Extended Post!");
+            }
+            catch (Exception e)
+            {
+                return BadRequest("Error: " + e);
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        [Route("RejectPost")]
+        public IActionResult RejectPost(int idPost)
+        {
+            try
+            {
+                var identity = HttpContext.User.Identity as ClaimsIdentity;
+                IList<Claim> claim = identity.Claims.ToList();
+
+                if (claim[1].Value != "admin") return Unauthorized();
+
+                var post = _context.Posts.Find(idPost);
+                post.Status = 2; // Reject
+                _context.SaveChanges();
+
+                return Ok("Rejected this post!");
             }
             catch (Exception e)
             {
@@ -547,7 +618,7 @@ on m.IdRoom equals posts.IdRoom
                 if (claim[1].Value != "admin") return Unauthorized();
 
                 if (number == 0) number = _context.Posts.ToList().Count;
-                var listPosts = (from post in _context.Posts
+                var listPosts = (from post in _context.Posts orderby(post.UpdatedAt) descending
                                  join room in _context.Motelrooms
                                  on post.IdRoom equals room.IdRoom
                                  select (new

@@ -36,14 +36,22 @@ namespace Web_BTL_Backend
         public override Task OnDisconnectedAsync(Exception exception)
         {
             Console.WriteLine("333");
+            var identity = Context.User.Identity as ClaimsIdentity;
+            IList<Claim> claim = identity.Claims.ToList();
+            string idUser = claim[2].Value;
+            clients.TryAdd(idUser, Context.ConnectionId);
+            string outConnect;
+            clients.TryRemove(idUser, out outConnect);
+
             var connectionId = Context.ConnectionId;
             return base.OnDisconnectedAsync(exception);
         }
 
         public static string getConnectIdByUserId(string userId)
         {
-            string outConnect;
+            string outConnect = "";
             clients.TryGetValue(userId, out outConnect);
+            if (outConnect == null) outConnect = "";
             return outConnect;
         }
     }

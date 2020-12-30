@@ -1,6 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 
 namespace Web_BTL_Backend.Controllers
 {
@@ -18,7 +22,8 @@ namespace Web_BTL_Backend.Controllers
         /// Send message to all
         /// </summary>
         /// <param name="message"></param>
-        [HttpPost("{message}")]
+        [Authorize]
+        [HttpPost("AdminNotify/{message}")]
         public void Post(string message)
         {
             Console.WriteLine("333");
@@ -30,11 +35,21 @@ namespace Web_BTL_Backend.Controllers
         /// </summary>
         /// <param name="connectionId"></param>
         /// <param name="message"></param>
-        [HttpPost("{idUser}/{message}")]
-        public void Post(string idUser, string message)
+        [Authorize]
+        [HttpPost("AdminNotify/{idUser}/{message}")]
+        public ActionResult Post(string idUser, string message)
         {
             string connectionId = SignalHub.getConnectIdByUserId(idUser);
-            _hub.Clients.Client(connectionId).SendAsync("privateMessageMethodName", (message));
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claim = identity.Claims.ToList();
+            if (claim[1].Value != "admin") return Unauthorized("Only admin can use this function!");
+
+            if (connectionId == "")
+            {
+                return BadRequest("User Not Online!");
+            }
+            _hub.Clients.Client(connectionId).SendAsync("privateAdminNotify", (message));
+            return Ok();
         }
     }
 }
