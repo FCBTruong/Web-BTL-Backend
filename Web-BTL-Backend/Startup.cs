@@ -60,23 +60,24 @@ namespace Web_BTL_Backend
             }
 
             app.UseCors(builder => builder
-            .WithOrigins("*", "http://127.0.0.1:5500", "http://estate.easyaccommodation.cf",
+            .WithOrigins("http://127.0.0.1:5500", "http://estate.easyaccommodation.cf",
             "http://localhost")
             .AllowAnyMethod()
             .AllowCredentials()
             .AllowAnyHeader());
-
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+
+            app.UseAuthentication();
+
+            app.UseAuthorization();
 
             app.UseSignalR(routes =>
             {
                 routes.MapHub<SignalHub>("/api/pushNotification");
             });
-            app.UseAuthentication();
-
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

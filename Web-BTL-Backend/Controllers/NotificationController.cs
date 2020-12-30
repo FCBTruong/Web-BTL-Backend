@@ -30,9 +30,10 @@ namespace Web_BTL_Backend.Controllers
         /// </summary>
         /// <param name="connectionId"></param>
         /// <param name="message"></param>
-        [HttpPost("{connectionId}/{message}")]
-        public void Post(string connectionId, string message)
+        [HttpPost("{idUser}/{message}")]
+        public void Post(string idUser, string message)
         {
+            string connectionId = SignalHub.getConnectIdByUserId(idUser);
             _hub.Clients.Client(connectionId).SendAsync("privateMessageMethodName", (message));
         }
     }
